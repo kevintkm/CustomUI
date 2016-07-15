@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+<!-- 3.0 标题栏主题色 -->
+<color name="theme_color_gray">#F7F7F7</color>
+
+<color name="home_titlebar_bg">#f84e37</color>
+<color name="home_titlebar_search_bg">#d42d00</color>
+<color name="entry_button_text_color_normal">#2B2B2B</color>
+<color name="entry_button_text_color_pressed">#F95538</color>
+<color name="common_orange2">#fd6847</color>
+<color name="common_orange3">#ff6a1b</color>
+<color name="common_orange4">#ff5d37</color>
+<color name="common_orange5">#fe704a</color>
+<color name="common_orange6">#fb6947</color>
+<color name="common_orange">#fd6847</color>
+<color name="common_orange7">#ffff724c</color>
+<color name="common_orange8">#ffff6603</color>
+<color name="common_orange9">#ffff6702</color>
+<color name="common_orange10">#ffff9a33</color>
+<color name="common_orange11">#ff6702</color>
+<color name="pressed_orange">#E14E34</color>
+<color name="deep_orange">#E12727</color>
+<color name="common_line_color">#E7E7E7</color>
+<color name="common_line_color2">#E5E5E5</color>
+<color name="d2d2d2">#D2D2D2</color>
+<color name="ff9a9a9a">#ff9a9a9a</color>
+<color name="c3c3c3c">#3C3C3C</color>
+<color name="f6f6f6f">#6F6F6F</color>
+<color name="black">#000000</color>
+<color name="black2">#b2000000</color>
+<color name="black3">#ff020202</color>
+<color name="black4">#ff343434</color>
+<color name="black5">#ff262121</color>
+<color name="ffe7e7e7">#ffe7e7e7</color>
+<color name="ffeeeeee">#ffeeeeee</color>
+<color name="ffdddddd">#ffdddddd</color>
+<color name="blue_light">#ff53a9ff</color>
+<color name="blue">#165DEF</color>
+<color name="e4e4e4">#e4e4e4</color>
+<color name="white">#FFFFFF</color>
+<color name="white_half">#57FFFFFF</color>
+<color name="whitesmoke">#f5f5f5</color>
+<color name="flowcash_grey">#747474</color>
+<color name="shopuser_buttontexr_grey">#747474</color>
+<color name="setting_blue">#fff8f9fa</color>
+
+<color name="black_friday_bg">#ee006a</color>
+<color name="RED">#FF0000</color>
+<color name="red">#FFC93437</color>
+<color name="red1">#fffe714c</color>
+<color name="red8">#fffe714b</color>
+<color name="swipe_refresh_layout_blue">#FF375BF1</color>
+<color name="yellow">#FFF7D23E</color>
+<color name="yellow_deep">#FFFFA61B</color>
+<color name="yellow2">#fffef00e</color>
+<color name="green">#FF34A350</color>
+<color name="green2">#36990b</color>
+<color name="green3">#FF4ad562</color>
+<color name="A9A9A9">#A9A9A9</color>
+<color name="common_background_color">#F0EFF5</color>
+<color name="dialog_style_1">#00000000</color>
+
+<color name="holo_blue">#FF33E5B5</color>
+<color name="blue1">#fff8f9fa</color>
+<color name="title_bg_color">#F95538</color>
+<!--标题栏背景色 -->
+<color name="transparent_deep">#B0000000</color>
+<!--半透明 -->
+<color name="transparent_half">#50000000</color>
+<!--半透明 -->
+<color name="transparent_half_deep_04">#10000000</color>
+<!--半透明 -->
+<color name="transparent">#00000000</color>
+<!--透明 -->
+<color name="transparent2">#00ffffff</color>
+<!--透明 -->
+<color name="transparent_deep1">#C0000000</color>
+<!--半透明 -->
+
+<color name="shopsetting">#fd5d3d</color>
+<!--店铺设置下导航背景 -->
+<color name="pink">#fd866a</color>
+<color name="pink2">#ff9388</color>
+<color name="pink3">#ff8042</color>
+<color name="pink4">#ff5000</color>
+<color name="pink5">#ff6b4a</color>
+<color name="pink6">#fa937f</color>
+<color name="red2">#fc6845</color>
+<color name="red3">#fd6946</color>
+<color name="red4">#ff5d37</color>
+<color name="red5">#ff6b4b</color>
+<color name="red6">#ff5b3f</color>
+<color name="red7">#fb6142</color>
+<color name="red9">#FFFF6E47</color>
+<color name="red10">#ff6702</color>
+<color name="deep_red">#fc6845</color>
+<color name="grey">#cecece</color>
+<color name="grey1">#dfdfdf</color>
+<color name="grey2">#929292</color>
+<color name="default_grey">#929292</color>
+<color name="grey3">#7a7a7a</color>
+<color name="grey4">#3e3f41</color>
+<color name="grey5">#f3f3f3</color>
+<color name="grey6">#f8f8f8</color>
+<color name="grey7">#64676C</color>
+<color name="grey8">#7a7a7a</color>
+<color name="grey9">#cccccc</color>
+<color name="grey10">#333333</color>
+<color name="grey11">#666666</color>
+<color name="grey12">#d2d2d2</color>
+<color name="grey13">#9a9a9a</color>
+<color name="grey14">#e7e6e6</color>
+<color name="grey15">#c7c7c7</color>
+<color name="grey16">#74787b</color>
+<color name="grey17">#777777</color>
+<color name="grey18">#bfbfbf</color>
+<color name="grey19">#ffeeeeee</color>
+<color name="grey20">#a1a1a1</color>
+<color name="grey21">#dcdcdc</color>
+<color name="grey22">#dddddd</color>
+<color name="grey23">#999999</color>
+<color name="grey24">#cdcdd2</color>
+<color name="grey25">#959595</color>
+<color name="grey26">#aeaeae</color>
+<color name="grey27">#b5b5b5</color>
+<color name="grey28">#FF686868</color>
+<color name="grey29">#FFE3E3E3</color>
+<color name="grey30">#A0A0A0</color>
+<color name="grey31">#484848</color>
+<color name="grey32">#f3f3f3</color>
+<color name="grey33">#999999</color>
+<color name="grey34">#eeeeee</color>
+<color name="grey35">#ff9b9b9b</color>
+<color name="grey37">#FFC7C7C7</color>
+<color name="grey38">#ff9a9a9a</color>
+<color name="grey39">#ff676464</color>
+<color name="grey40">#ff939090</color>
+<color name="grey41">#ffb5b5b7</color>
+<color name="grey42">#ff8d8d8f</color>
+<color name="grey43">#fff5f5f5</color>
+<color name="grey44">#c4c4c4</color>
+<color name="grey45">#c9c9c9</color>
+<color name="gray">#efeff4</color>
+<color name="gray_icon">#ababab</color>
+
+<color name="gray2">#f5f5f5</color>
+<color name="deep_title_bg_color">#e95635</color>
+<color name="grid_bg">#FFFFFFFF</color>
+<color name="grid_bg2">#FFFFE7E1</color>
+<color name="grid_bg3">#FFFEEBED</color>
+<color name="grid_border">#FFC6C6C6</color>
+<color name="md_tip_red">#fd4e39</color>
+
+<!-- ViewfinderView START -->
+<color name="viewfinder_frame">#ff000000</color>
+<color name="viewfinder_laser">#ffcc0000</color>
+<!-- Android standard ICS color -->
+<color name="viewfinder_mask">#60000000</color>
+<color name="result_view">#b0000000</color>
+<color name="possible_result_points">#c0ffbd21</color>
+<!-- Android standard ICS color -->
+<!-- ViewfinderView END -->
+
+<color name="entry_login_third_part_text_color">#343434</color>
+<color name="entry_login_register_text_color">#1A1A1A</color>
+<color name="entry_login_third_titile_text_color">#818181</color>
+
+<drawable name="grey32_drawable">@color/grey32</drawable>
+<drawable name="white">@color/white</drawable>
+<drawable name="gray">#f2f2f2</drawable>
+<drawable name="light_gray">#f7f7f7</drawable>
+<color name="grey_normal">#767676</color>
+<color name="orange">#FFA71E</color>
+<color name="orange_wip_bg">#F84F38</color>
+<color name="orange_wip_font">#FDCAC3</color>
+<color name="orange_fxfdprod_head_line">#ffa295</color>
+<color name="gray3">#676767</color>
+<color name="coupe_detail_font">#BEBDBD</color>
+<color name="group_person_info_title">#FF6734</color>
+<color name="personal_remark_finish">#FC724B</color>
+<color name="chat_bg">#f0eff5</color>
+<color name="wallet_item_black">#272727</color>
+<color name="common_fxfd_button_orange">#f84e37</color>
+<color name="wallet_balance_to_fxfd">#FF50ADF3</color>
+<color name="wallet_balance_font">#333333</color>
+<color name="gb_goods_list_adapter_value">#ffaa00</color>
+<color name="gb_goods_list_adapter_btn_grab_imd">#ff534c</color>
+<color name="gb_goods_list_adapter_btn_sold_out">#999999</color>
+<color name="gb_user_list_more">#fb6e52</color>
+<color name="line_gray">#e0e0e0</color>
+<color name="font_blue">#42bcea</color>
+</resources>
