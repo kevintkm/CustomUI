@@ -27,6 +27,27 @@ public class RecyclerviewActivity extends Activity {
         myExRecyclerView.setAdapter(mAdapter);
         myExRecyclerView.setHeaderView(R.layout.uicomponent_header_view_indiana);
         myExRecyclerView.setFooterView(R.layout.uicomponent_footer_view_indiana);
+        myExRecyclerView.setOnRefreshListener(new ExRecyclerView.OnRefreshListener() {
+            @Override
+            public void onHeaderRefresh() {
+                try {
+                    Thread.sleep(300);
+                    myExRecyclerView.onRefreshComplete();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFooterRefresh() {
+                try {
+                    Thread.sleep(300);
+                    myExRecyclerView.onLoadNoMoreComplete();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         List<String> strings = new ArrayList<>();
         for (int i = 0; i < 25; i++) {
             strings.add("kevin" + i);

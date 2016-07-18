@@ -23,6 +23,7 @@ public class DividerLinearItemDecoration extends RecyclerView.ItemDecoration {
     private Context mContext;
     private Paint mPaint;
     private int mDefaultSize;
+    private boolean hasHeader;
 
     public DividerLinearItemDecoration(Context context, int orientation) {
        this(context, 0, 0, orientation);
@@ -90,12 +91,16 @@ public class DividerLinearItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     private void drawLines(Canvas c, RecyclerView parent) {
-        int count = parent.getChildCount();
+        int visibleCount = parent.getChildCount();
+        int count = parent.getAdapter().getItemCount();
         //最后一个item不绘制分割线
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < visibleCount; i++) {
             View child = parent.getChildAt(i);
-            if (filterHeadAndFooter(child,parent))
+            int position = parent.getChildAdapterPosition(child);
+            if (filterHead(child,parent)){
                 continue;
+            }
+            if (position < (hasHeader?count:count-1)) {
                 RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
                 int left = 0, right = 0, top = 0, bottom = 0;
                 if (mOrientation == StaggeredGridLayoutManager.HORIZONTAL) {
@@ -115,6 +120,7 @@ public class DividerLinearItemDecoration extends RecyclerView.ItemDecoration {
                 } else {
                     c.drawRect(left, top, right, bottom, mPaint);
                 }
+            }
 
         }
     }
@@ -126,9 +132,9 @@ public class DividerLinearItemDecoration extends RecyclerView.ItemDecoration {
      * @param view
      * @param parent
      */
-    private boolean filterHeadAndFooter(View view, RecyclerView parent) {
+    private boolean filterHead(View view, RecyclerView parent) {
         RecyclerView.ViewHolder holder = parent.getChildViewHolder(view);
-        if (holder.getItemViewType() == -1 || holder.getItemViewType() == -2)
+        if (holder.getItemViewType() == -1 )
             return true;
         return false;
     }
@@ -136,13 +142,14 @@ public class DividerLinearItemDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
-        if (filterHeadAndFooter(view,parent))
-            return;
         int position = parent.getChildAdapterPosition(view);
         int count = parent.getAdapter().getItemCount();
-
+        if (filterHead(view, parent)) {
+            hasHeader = true;
+            return;
+        }
         if (mOrientation == StaggeredGridLayoutManager.VERTICAL) {
-            if (position<count-1) {
+            if (position < (hasHeader?count:count-1)) {
                 outRect.set(0, 0, 0, (mDefaultSize > 0 ? mDefaultSize : mDrawable.getIntrinsicHeight()));
             }else {
                 outRect.set(0,0,0,0);
