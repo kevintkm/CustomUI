@@ -1,5 +1,6 @@
 package com.example.lenovo.timescroller;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -20,10 +21,10 @@ public class RecyclerviewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recyclerview);
 
+        mAdapter = new ItemDecorationAdapter(this);
         myExRecyclerView = (ExRecyclerView) findViewById(R.id.myExRecyclerView);
         myExRecyclerView.addItemDecoration(new DividerLinearItemDecoration(this, R.color.red, 16, StaggeredGridLayoutManager.VERTICAL));
         myExRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
-        mAdapter = new ItemDecorationAdapter(this);
         myExRecyclerView.setAdapter(mAdapter);
         myExRecyclerView.setHeaderView(R.layout.uicomponent_header_view_indiana);
         myExRecyclerView.setFooterView(R.layout.uicomponent_footer_view_indiana);
@@ -52,8 +53,14 @@ public class RecyclerviewActivity extends Activity {
         for (int i = 0; i < 25; i++) {
             strings.add("kevin" + i);
         }
-        mAdapter.setLists(strings);
-        mAdapter.notifyDataSetChanged();
+        try {
+            Thread.sleep(3000);
+            mAdapter.setLists(strings);
+            mAdapter.notifyDataSetChanged();
+            myExRecyclerView.onRefreshComplete();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 

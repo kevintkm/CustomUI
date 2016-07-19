@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
+import com.example.lenovo.timescroller.View.ExRecyclerView;
+
 /**
  * Created by kevin.tian on 2016/7/13.
  * StaggeredGridLayoutManager.VERTICAL方向的垂直分割线，row为1，根据ExRecyclerView不支持横向
@@ -97,10 +99,9 @@ public class DividerLinearItemDecoration extends RecyclerView.ItemDecoration {
         for (int i = 0; i < visibleCount; i++) {
             View child = parent.getChildAt(i);
             int position = parent.getChildAdapterPosition(child);
-            if (filterHead(child,parent)){
+            if (((ExRecyclerView) parent).hasHeaderView() && (position == 0 || position == count)) {
                 continue;
             }
-            if (position < (hasHeader?count:count-1)) {
                 RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
                 int left = 0, right = 0, top = 0, bottom = 0;
                 if (mOrientation == StaggeredGridLayoutManager.HORIZONTAL) {
@@ -119,44 +120,14 @@ public class DividerLinearItemDecoration extends RecyclerView.ItemDecoration {
                     mDrawable.draw(c);
                 } else {
                     c.drawRect(left, top, right, bottom, mPaint);
+                    //      }
                 }
-            }
 
         }
-    }
 
-    /**
-     * 过滤head与footer
-     * HeaderView影响绘制高度，原因待查
-     *
-     * @param view
-     * @param parent
-     */
-    private boolean filterHead(View view, RecyclerView parent) {
-        RecyclerView.ViewHolder holder = parent.getChildViewHolder(view);
-        if (holder.getItemViewType() == -1 )
-            return true;
-        return false;
     }
-
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
-        int position = parent.getChildAdapterPosition(view);
-        int count = parent.getAdapter().getItemCount();
-        if (filterHead(view, parent)) {
-            hasHeader = true;
-            return;
-        }
-        if (mOrientation == StaggeredGridLayoutManager.VERTICAL) {
-            if (position < (hasHeader?count:count-1)) {
-                outRect.set(0, 0, 0, (mDefaultSize > 0 ? mDefaultSize : mDrawable.getIntrinsicHeight()));
-            }else {
-                outRect.set(0,0,0,0);
-            }
-        } else {
-            //由于recyclerView不支持，暂时无用
-            outRect.set(0, 0, (mDefaultSize>0?mDefaultSize:mDrawable.getIntrinsicHeight()), 0);
-        }
     }
 }
