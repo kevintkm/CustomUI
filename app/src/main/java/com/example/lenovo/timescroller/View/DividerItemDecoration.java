@@ -1,4 +1,4 @@
-package com.example.lenovo.timescroller;
+package com.example.lenovo.timescroller.View;
 
 import android.content.Context;
 import android.content.res.TypedArray;

@@ -1,4 +1,4 @@
-package com.example.lenovo.timescroller;
+package com.example.lenovo.timescroller.View;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -150,6 +150,9 @@ public class DividerGridViewItemDecoration extends RecyclerView.ItemDecoration {
     @Override
     public void getItemOffsets(Rect outRect, int itemPosition,
                                RecyclerView parent) {
+
+        outRect.set(0,0,0,20);
+
         /*int spanCount = getSpanCount(parent);
         int childCount = parent.getAdapter().getItemCount();
         if (isLastRaw(parent, itemPosition, spanCount, childCount))// 如果是最后一行，则不需要绘制底部

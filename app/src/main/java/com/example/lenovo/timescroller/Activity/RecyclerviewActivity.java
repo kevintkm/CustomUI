@@ -1,13 +1,13 @@
-package com.example.lenovo.timescroller;
+package com.example.lenovo.timescroller.Activity;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import com.example.lenovo.timescroller.Adapter.ItemDecorationAdapter;
-import com.example.lenovo.timescroller.View.ExRecyclerView;
+import com.example.lenovo.timescroller.View.DividerGridViewItemDecoration;
+import com.example.lenovo.timescroller.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +22,12 @@ public class RecyclerviewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recyclerview);
 
-        mAdapter = new ItemDecorationAdapter(this);
+       /* mAdapter = new ItemDecorationAdapter(this);
         myExRecyclerView = (RecyclerView) findViewById(R.id.myExRecyclerView);
         myExRecyclerView.addItemDecoration(new DividerGridViewItemDecoration(this));
         myExRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
         myExRecyclerView.setAdapter(mAdapter);
-       /* myExRecyclerView.setHeaderView(R.layout.uicomponent_header_view_indiana);
+        myExRecyclerView.setHeaderView(R.layout.uicomponent_header_view_indiana);
         myExRecyclerView.setFooterView(R.layout.uicomponent_footer_view_indiana);
         myExRecyclerView.setOnRefreshListener(new ExRecyclerView.OnRefreshListener() {
             @Override
@@ -49,7 +49,7 @@ public class RecyclerviewActivity extends Activity {
                     e.printStackTrace();
                 }
             }
-        });*/
+        });
         List<String> strings = new ArrayList<>();
         for (int i = 0; i < 26; i++) {
             strings.add("kevin" + i);
@@ -62,7 +62,7 @@ public class RecyclerviewActivity extends Activity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
+        */
     }
 
 }
