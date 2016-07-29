@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.lenovo.timescroller.Adapter.ItemDecorationAdapter;
 import com.example.lenovo.timescroller.View.AliArc;
 import com.example.lenovo.timescroller.View.DividerGridViewItemDecoration;
 import com.example.lenovo.timescroller.R;
+import com.example.lenovo.timescroller.View.ExRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,38 +21,18 @@ import java.util.TimerTask;
 
 public class RecyclerviewActivity extends Activity {
 
-    private RecyclerView myExRecyclerView;
+    private ExRecyclerView myExRecyclerView;
     private ItemDecorationAdapter mAdapter;
-    private AliArc aliArc;
-    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recyclerview);
-        aliArc = (AliArc) findViewById(R.id.myAliArc);
-        textView = (TextView) findViewById(R.id.myText);
-//        new Timer().schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-        aliArc.setValue(682, new AliArc.RotateListener() {
-            @Override
-            public void rotate(float sweepAngle, final float value) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        textView.setText(Math.round(value) + "");
-                    }
-                });
-            }
-        });
-//            }
-//        }, 1000);
+        myExRecyclerView = (ExRecyclerView) findViewById(R.id.recyclerView);
 
-       /* mAdapter = new ItemDecorationAdapter(this);
-        myExRecyclerView = (RecyclerView) findViewById(R.id.myExRecyclerView);
+        mAdapter = new ItemDecorationAdapter(this);
         myExRecyclerView.addItemDecoration(new DividerGridViewItemDecoration(this));
-        myExRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+        myExRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         myExRecyclerView.setAdapter(mAdapter);
         myExRecyclerView.setHeaderView(R.layout.uicomponent_header_view_indiana);
         myExRecyclerView.setFooterView(R.layout.uicomponent_footer_view_indiana);
@@ -82,11 +65,17 @@ public class RecyclerviewActivity extends Activity {
             Thread.sleep(3000);
             mAdapter.setLists(strings);
             mAdapter.notifyDataSetChanged();
-            //myExRecyclerView.onRefreshComplete();
+            myExRecyclerView.onRefreshComplete();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        */
+    }
+
+    public void click(View v) {
+        int length = mAdapter.getLists().size();
+        mAdapter.getLists().remove(length-3);
+        mAdapter.notifyItemRemoved(length - 3);
+
     }
 
 }

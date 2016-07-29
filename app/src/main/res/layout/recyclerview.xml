@@ -7,18 +7,16 @@
     android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".Activity.MainActivity">
-    <com.example.lenovo.timescroller.View.AliArc
-        android:id="@+id/myAliArc"
+    <com.example.lenovo.timescroller.View.ExRecyclerView
+        android:id="@+id/recyclerView"
         android:background="@color/white"
         android:layout_margin="@dimen/dp20"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="350"
-        android:textSize="40sp"
-        android:id="@+id/myText"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="@dimen/dp100"/>
+        android:onClick="click"
+        android:layout_gravity="bottom"
+        android:text="删除最后一项"/>
 </FrameLayout>

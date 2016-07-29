@@ -616,6 +616,11 @@ public class ExRecyclerView extends RecyclerView {
                 public void onChanged() {
                     notifyDataSetChanged();
                 }
+
+                @Override
+                public void onItemRangeRemoved(int positionStart, int itemCount) {
+                    notifyItemRangeRemoved(positionStart, itemCount);
+                }
             });
         }
 
