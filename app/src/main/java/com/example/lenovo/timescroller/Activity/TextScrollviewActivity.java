@@ -1,9 +1,12 @@
 package com.example.lenovo.timescroller.Activity;
 
+import android.animation.ObjectAnimator;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.design.widget.TabItem;
 import android.support.design.widget.TabLayout;
+import android.support.v7.widget.ViewUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +25,7 @@ public class TextScrollviewActivity extends Activity implements TabLayout.OnTabS
     private LinearLayout layout;
     private TabLayout tabLayout;
     private List<TabObject> tabs;
+    private TextView mAnimator;
 
     public class TabObject {
         String text;
@@ -55,6 +59,7 @@ public class TextScrollviewActivity extends Activity implements TabLayout.OnTabS
         setContentView(R.layout.text_scrollview);
         layout = (LinearLayout) findViewById(R.id.layout);
         tabLayout = (TabLayout) findViewById(R.id.tablayout);
+        mAnimator = (TextView) findViewById(R.id.animator);
         tabLayout.setOnTabSelectedListener(this);
 
         TabObject object = new TabObject("Tab1",R.drawable.md_refresh_loading01);
@@ -65,14 +70,16 @@ public class TextScrollviewActivity extends Activity implements TabLayout.OnTabS
         tabs.add(object1);
         tabs.add(object2);
 
+
+
         for (int i = 0;i<tabs.size();i++ ){
             TabObject tab = tabs.get(i);
             View view = LayoutInflater.from(this).inflate(R.layout.custom_tablayout_tabview, null, false);
-            TextView text = (TextView) view.findViewById(R.id.text1);
+         /*   TextView text = (TextView) view.findViewById(R.id.text1);
             text.setText(tab.getText());
             ImageView imageView = (ImageView) view.findViewById(R.id.icon);
-            imageView.setImageResource(tab.getImage());
-            tabLayout.addTab(tabLayout.newTab().setCustomView(view));
+            imageView.setImageResource(tab.getImage());*/
+            tabLayout.addTab(tabLayout.newTab().setCustomView(view).setText(tab.getText()).setIcon(tab.getImage()));
         }
 
         for (int i = 0; i < 9; i++) {
@@ -87,7 +94,7 @@ public class TextScrollviewActivity extends Activity implements TabLayout.OnTabS
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
-       // Toast.makeText(this, tab.getText().toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, tab.getText().toString(), Toast.LENGTH_LONG).show();
     }
 
     @Override

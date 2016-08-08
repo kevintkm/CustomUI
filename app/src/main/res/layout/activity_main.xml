@@ -1,27 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-    <!--  <android.support.v7.widget.RecyclerView
-          android:id="@+id/myRecyclerView"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"/>-->
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_centerInParent="true"
-        android:layout_height="45dp"
-        android:background="@drawable/border_orange_round"
-        />
+    android:orientation="vertical"
+>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tablayout"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbars"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:background="#00ffff"/>
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Theme.Drawer.ArrowAnimation" />
 
-</RelativeLayout>
+    <android.support.v4.widget.DrawerLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/drawer"
+        >
+        <FrameLayout
+            android:id="@+id/main_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+      <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/red"
+            android:id="@+id/left_drawer"
+            android:layout_gravity="start"
+            ></FrameLayout>
+        <!-- <FrameLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:background="@color/orange"
+           android:id="@+id/right_drawer"
+           android:layout_gravity="right"
+           ></FrameLayout>-->
+    </android.support.v4.widget.DrawerLayout>
+
+
+</LinearLayout>

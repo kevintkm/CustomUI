@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical">
 
     <HorizontalScrollView
@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:scrollbars="none"
         >
+
         <LinearLayout
             android:id="@+id/layout"
             android:layout_width="match_parent"
@@ -19,10 +20,17 @@
     </HorizontalScrollView>
 
     <android.support.design.widget.TabLayout
+        android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabMode="fixed"
         app:tabGravity="fill"
-        android:id="@+id/tablayout"
+        app:tabIndicatorColor="@color/red"
+        app:tabMode="fixed"
         />
+
+    <TextView
+        android:id="@+id/animator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AnimatorCompat"/>
 </LinearLayout>
