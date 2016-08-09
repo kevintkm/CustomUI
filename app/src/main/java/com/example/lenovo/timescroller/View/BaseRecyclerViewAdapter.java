@@ -20,7 +20,12 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
     }
 
     public abstract boolean isPinnedItem(int viewType);
-
+/**
+* @Description: 当未设置lists的时候会导致recyclerView数据为空
+* @param ${tags}
+* @return ${return_type}
+* @throws
+*/
     @Override
     public int getItemCount() {
         return lists==null?0:lists.size();
