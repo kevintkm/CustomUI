@@ -19,12 +19,13 @@ import java.util.List;
 /**
  * Created by kevin.tian on 2016/8/9.
  */
-public class MenuFragment extends Fragment{
+public class MenuFragment extends Fragment {
 
     ExRecyclerView mRecyclerView;
     List<String> mDatas;
     View menuView;
     MenuAdapter menuAdapter;
+
 
     @Override
     public void setArguments(Bundle args) {
@@ -34,20 +35,17 @@ public class MenuFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-         menuView = inflater.inflate(R.layout.fragment_menu_layout,null);
+        menuView = inflater.inflate(R.layout.fragment_menu_layout, null);
         init();
         return menuView;
     }
 
     private void init() {
-        mDatas = new ArrayList<>();
-        mDatas.add("首页");
-        mDatas.add("新闻");
-        mDatas.add("代码家");
-        mDatas.add("Gank");
+        Bundle bundle = getArguments();
+        mDatas = bundle.getStringArrayList("data");
         mRecyclerView = (ExRecyclerView) menuView.findViewById(R.id.menu_recyclerview);
         menuAdapter = new MenuAdapter(getActivity());
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setHeaderView(R.layout.uicomponent_header_view_indiana);
         mRecyclerView.setFooterView(R.layout.uicomponent_footer_view_indiana);
         mRecyclerView.setAdapter(menuAdapter);

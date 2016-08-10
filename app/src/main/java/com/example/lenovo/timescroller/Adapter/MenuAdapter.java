@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.lenovo.timescroller.Activity.MainActivity;
 import com.example.lenovo.timescroller.R;
 import com.example.lenovo.timescroller.View.BaseRecyclerViewAdapter;
 import com.example.lenovo.timescroller.ViewHolder.MenuViewHolder;
@@ -37,6 +38,7 @@ public class MenuAdapter extends BaseRecyclerViewAdapter<String> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MenuViewHolder menuViewHolder = (MenuViewHolder) holder;
+        menuViewHolder.setListener((MainActivity)mContext);
         menuViewHolder.setData(lists.get(position));
     }
 }

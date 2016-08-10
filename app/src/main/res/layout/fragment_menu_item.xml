@@ -4,6 +4,8 @@
                                     app:cardCornerRadius="10dp"
                                     app:cardPreventCornerOverlap="false"
                                     app:cardUseCompatPadding="true"
+                                    android:clickable="true"
+                                    android:foreground="?attr/selectableItemBackground"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content">
     <RelativeLayout

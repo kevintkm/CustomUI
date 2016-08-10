@@ -12,7 +12,7 @@ import com.example.lenovo.timescroller.R;
 /**
  * Created by kevin.tian on 2016/8/9.
  */
-public class SecondFragment extends Fragment{
+public class ThirdFragment extends Fragment{
     @Override
     public void setArguments(Bundle args) {
         super.setArguments(args);
