@@ -7,16 +7,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.lenovo.timescroller.Activity.MainActivity;
+import com.example.lenovo.timescroller.Model.MenuBean;
 import com.example.lenovo.timescroller.R;
 import com.example.lenovo.timescroller.ViewHolder.MenuViewHolder;
 
 /**
  * Created by kevin.tian on 2016/8/9.
  */
-public class MenuAdapter extends BaseRecyclerViewAdapter<String> {
+public class MenuAdapter extends BaseRecyclerViewAdapter<MenuBean> {
 
     Context mContext;
+    MenuItemClickListener listener;
 
+    public void setListener(MenuItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    public interface MenuItemClickListener {
+        void menuItemClick(Object object);
+    }
     public MenuAdapter(Context mContext) {
         this.mContext = mContext;
     }
@@ -30,14 +39,19 @@ public class MenuAdapter extends BaseRecyclerViewAdapter<String> {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.fragment_menu_item, null);
-        MenuViewHolder holder = new MenuViewHolder(view);
+        MenuViewHolder holder = new MenuViewHolder(mContext,view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         MenuViewHolder menuViewHolder = (MenuViewHolder) holder;
-        menuViewHolder.setListener((MainActivity)mContext);
+        menuViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.menuItemClick(lists.get(position));
+            }
+        });
         menuViewHolder.setData(lists.get(position));
     }
 }

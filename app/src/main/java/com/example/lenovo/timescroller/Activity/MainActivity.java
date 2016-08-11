@@ -1,5 +1,6 @@
 package com.example.lenovo.timescroller.Activity;
 
+import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,20 +10,29 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
+import com.example.lenovo.timescroller.Adapter.MenuAdapter;
 import com.example.lenovo.timescroller.Fragment.MainFragment;
 import com.example.lenovo.timescroller.Fragment.MenuFragment;
 import com.example.lenovo.timescroller.Fragment.SecondFragment;
 import com.example.lenovo.timescroller.Fragment.ThirdFragment;
+import com.example.lenovo.timescroller.Model.MenuBean;
 import com.example.lenovo.timescroller.R;
 import com.example.lenovo.timescroller.ViewHolder.MenuViewHolder;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MenuViewHolder.MenuItemClickListener {
+public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuItemClickListener {
 
 
     Toolbar toolbar;
@@ -32,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements MenuViewHolder.Me
     FragmentManager fragmentManager;
     Fragment currentFragment;
     Fragment menuFragment;
-    ArrayList<String> mDatas;
+    ArrayList<MenuBean> mDatas;
     HashMap<Integer, Fragment> fragmentHashMap;
 
     @Override
@@ -49,18 +59,25 @@ public class MainActivity extends AppCompatActivity implements MenuViewHolder.Me
         drawerToggle = new ActionBarDrawerToggle(this, layout, toolbar, R.string.open, R.string.close);
         layout.setDrawerListener(drawerToggle);
         mDatas = new ArrayList<>();
-
-        mDatas.add("首页");
-        mDatas.add("新闻");
-        mDatas.add("aaaa");
+        AssetManager manager = getAssets();
+        try {
+            InputStream inputStream = manager.open("menu list.txt");
+            BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
+            Type type = new TypeToken<List<MenuBean>>(){}.getType();
+            Gson gson = new Gson();
+            mDatas = gson.fromJson(buffer,type);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         menuFragment = new MenuFragment();
         Bundle bundle = new Bundle();
-        bundle.putStringArrayList("data", mDatas);
+        bundle.putSerializable("data", mDatas);
         menuFragment.setArguments(bundle);
 
         fragmentHashMap = new HashMap<>();
 
         fragmentManager.beginTransaction().replace(R.id.main_drawer_fl, menuFragment).commit();
+
         currentFragment = getMenuFragment(0);
         fragmentManager.beginTransaction().add(R.id.main_content, currentFragment).commit();
     }
@@ -117,7 +134,6 @@ public class MainActivity extends AppCompatActivity implements MenuViewHolder.Me
     public void menuItemClick(Object object) {
         if (mDatas.contains(object)) {
             switchFragment(mDatas.indexOf(object));
-            Log.d("========", "ViewHolder           Click");
         }
     }
 

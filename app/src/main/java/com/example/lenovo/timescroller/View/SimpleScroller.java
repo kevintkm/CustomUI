@@ -5,8 +5,6 @@ import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.Scroller;
 
-import com.example.lenovo.timescroller.Util.Util;
-
 /**
  * Created by kevin.tian on 2016/7/7.
  */

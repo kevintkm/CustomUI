@@ -94,7 +94,7 @@ public class DividerLinearItemDecoration extends RecyclerView.ItemDecoration {
 
     private void drawLines(Canvas c, RecyclerView parent) {
         int visibleCount = parent.getChildCount();
-        int count = parent.getAdapter().getItemCount();
+        int count = ((ExRecyclerView)parent).getAdapter().getItemCount();
         //最后一个item不绘制分割线
         for (int i = 0; i < visibleCount; i++) {
             View child = parent.getChildAt(i);

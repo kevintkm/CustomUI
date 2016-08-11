@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.lenovo.timescroller.Activity.MainActivity;
 import com.example.lenovo.timescroller.Adapter.MenuAdapter;
+import com.example.lenovo.timescroller.Model.MenuBean;
 import com.example.lenovo.timescroller.R;
 import com.example.lenovo.timescroller.View.DividerGridViewItemDecoration;
 import com.example.lenovo.timescroller.View.DividerLinearItemDecoration;
@@ -23,7 +25,7 @@ import java.util.List;
 public class MenuFragment extends Fragment {
 
     ExRecyclerView mRecyclerView;
-    List<String> mDatas;
+    List<MenuBean> mDatas;
     View menuView;
     MenuAdapter menuAdapter;
 
@@ -43,7 +45,7 @@ public class MenuFragment extends Fragment {
 
     private void init() {
         Bundle bundle = getArguments();
-        mDatas = bundle.getStringArrayList("data");
+        mDatas = (List<MenuBean>) bundle.getSerializable("data");
         mRecyclerView = (ExRecyclerView) menuView.findViewById(R.id.menu_recyclerview);
         menuAdapter = new MenuAdapter(getActivity());
         mRecyclerView.addItemDecoration(new DividerLinearItemDecoration(getActivity(),StaggeredGridLayoutManager.VERTICAL));
@@ -52,6 +54,7 @@ public class MenuFragment extends Fragment {
         mRecyclerView.setFooterView(R.layout.uicomponent_footer_view_indiana);
         mRecyclerView.setHeaderView(R.layout.uicomponent_header_view_indiana);
         menuAdapter.setLists(mDatas);
+        menuAdapter.setListener((MainActivity)getActivity());
         menuAdapter.notifyDataSetChanged();
     }
 }

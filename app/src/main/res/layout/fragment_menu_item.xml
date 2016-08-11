@@ -24,7 +24,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/menu_item_image"
-            android:clickable="true"
             android:layout_centerVertical="true"
             android:textColor="@color/black"
             android:textSize="@dimen/sp15"/>

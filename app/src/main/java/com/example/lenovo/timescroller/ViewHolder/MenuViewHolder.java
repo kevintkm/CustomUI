@@ -1,10 +1,14 @@
 package com.example.lenovo.timescroller.ViewHolder;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.example.lenovo.timescroller.Model.MenuBean;
 import com.example.lenovo.timescroller.R;
 
 /**
@@ -12,19 +16,14 @@ import com.example.lenovo.timescroller.R;
  */
 public class MenuViewHolder extends RecyclerView.ViewHolder {
     TextView menuText;
-    MenuItemClickListener listener;
+    ImageView imageView;
+    Context mContext;
 
-    public void setListener(MenuItemClickListener listener) {
-        this.listener = listener;
-    }
-
-    public interface MenuItemClickListener {
-        void menuItemClick(Object object);
-    }
-
-    public MenuViewHolder(View itemView) {
+    public MenuViewHolder(Context context,View itemView) {
         super(itemView);
+        this.mContext = context;
         menuText = (TextView) itemView.findViewById(R.id.menu_item_text);
+        imageView = (ImageView) itemView.findViewById(R.id.menu_item_image);
     }
 
 /**
@@ -33,15 +32,9 @@ public class MenuViewHolder extends RecyclerView.ViewHolder {
 * @return ${return_type}
 * @throws
 */
-    public void setData(final String text) {
-        menuText.setText(text);
-        menuText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("========","ViewHolderClick");
-                listener.menuItemClick(text);
-            }
-        });
+    public void setData(final MenuBean bean) {
+        menuText.setText(bean.getTitle());
+        Glide.with(mContext).load(bean.getIconUrl()).into(imageView);
     }
 
 }
