@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements MenuViewHolder.Me
         drawerToggle = new ActionBarDrawerToggle(this, layout, toolbar, R.string.open, R.string.close);
         layout.setDrawerListener(drawerToggle);
         mDatas = new ArrayList<>();
+
         mDatas.add("首页");
         mDatas.add("新闻");
         mDatas.add("aaaa");

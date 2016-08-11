@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.example.lenovo.timescroller.Activity.MainActivity;
 import com.example.lenovo.timescroller.R;
-import com.example.lenovo.timescroller.View.BaseRecyclerViewAdapter;
 import com.example.lenovo.timescroller.ViewHolder.MenuViewHolder;
 
 /**

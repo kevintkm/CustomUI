@@ -3,7 +3,7 @@ package com.example.lenovo.timescroller.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +11,10 @@ import android.view.ViewGroup;
 
 import com.example.lenovo.timescroller.Adapter.MenuAdapter;
 import com.example.lenovo.timescroller.R;
+import com.example.lenovo.timescroller.View.DividerGridViewItemDecoration;
+import com.example.lenovo.timescroller.View.DividerLinearItemDecoration;
 import com.example.lenovo.timescroller.View.ExRecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,10 +46,11 @@ public class MenuFragment extends Fragment {
         mDatas = bundle.getStringArrayList("data");
         mRecyclerView = (ExRecyclerView) menuView.findViewById(R.id.menu_recyclerview);
         menuAdapter = new MenuAdapter(getActivity());
+        mRecyclerView.addItemDecoration(new DividerLinearItemDecoration(getActivity(),StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
-        mRecyclerView.setHeaderView(R.layout.uicomponent_header_view_indiana);
-        mRecyclerView.setFooterView(R.layout.uicomponent_footer_view_indiana);
         mRecyclerView.setAdapter(menuAdapter);
+        mRecyclerView.setFooterView(R.layout.uicomponent_footer_view_indiana);
+        mRecyclerView.setHeaderView(R.layout.uicomponent_header_view_indiana);
         menuAdapter.setLists(mDatas);
         menuAdapter.notifyDataSetChanged();
     }

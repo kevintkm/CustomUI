@@ -102,6 +102,9 @@ public class DividerLinearItemDecoration extends RecyclerView.ItemDecoration {
             if (((ExRecyclerView) parent).hasHeaderView() && (position == 0 || position == count)) {
                 continue;
             }
+            if (!((ExRecyclerView) parent).hasHeaderView() && ( position == count-1)) {
+                continue;
+            }
                 RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
                 int left = 0, right = 0, top = 0, bottom = 0;
                 if (mOrientation == StaggeredGridLayoutManager.HORIZONTAL) {

@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.lenovo.timescroller.Adapter.BaseRecyclerViewAdapter;
 import com.example.lenovo.timescroller.ViewHolder.DynamicRecyclerViewHolder;
 import com.example.lenovo.timescroller.ViewHolder.HFRecyclerViewHolder;
 import com.example.lenovo.timescroller.ViewHolder.SingleLineRecyclerViewHolder;

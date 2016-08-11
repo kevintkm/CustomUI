@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.lenovo.timescroller.View.BaseRecyclerViewAdapter;
 import com.example.lenovo.timescroller.ViewHolder.DecorationViewHolder;
 
 /**

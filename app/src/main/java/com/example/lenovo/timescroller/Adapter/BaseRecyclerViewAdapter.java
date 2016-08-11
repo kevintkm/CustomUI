@@ -1,4 +1,4 @@
-package com.example.lenovo.timescroller.View;
+package com.example.lenovo.timescroller.Adapter;
 
 import android.support.v7.widget.RecyclerView;
 
