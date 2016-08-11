@@ -13,13 +13,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.lenovo.timescroller.Adapter.MenuAdapter;
-import com.example.lenovo.timescroller.Fragment.MainFragment;
+import com.example.lenovo.timescroller.Fragment.AboutUserFragment;
+import com.example.lenovo.timescroller.Fragment.DesignPatternFragment;
+import com.example.lenovo.timescroller.Fragment.MoudleLearningFragment;
+import com.example.lenovo.timescroller.Fragment.ProjectLearningFragment;
 import com.example.lenovo.timescroller.Fragment.MenuFragment;
-import com.example.lenovo.timescroller.Fragment.SecondFragment;
-import com.example.lenovo.timescroller.Fragment.ThirdFragment;
+import com.example.lenovo.timescroller.Fragment.CommonWidgetFragment;
+import com.example.lenovo.timescroller.Fragment.SourceAnalyseFragment;
 import com.example.lenovo.timescroller.Model.MenuBean;
 import com.example.lenovo.timescroller.R;
-import com.example.lenovo.timescroller.ViewHolder.MenuViewHolder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -38,7 +40,8 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuI
     Toolbar toolbar;
     DrawerLayout layout;
     ActionBarDrawerToggle drawerToggle;
-    final Class<?>[] tabFragments = {MainFragment.class, SecondFragment.class , ThirdFragment.class};
+    final Class<?>[] tabFragments = {ProjectLearningFragment.class, CommonWidgetFragment.class , SourceAnalyseFragment.class, MoudleLearningFragment.class,
+            DesignPatternFragment.class, AboutUserFragment.class};
     FragmentManager fragmentManager;
     Fragment currentFragment;
     Fragment menuFragment;

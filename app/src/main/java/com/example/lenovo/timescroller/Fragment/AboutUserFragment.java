@@ -17,7 +17,7 @@ import com.example.lenovo.timescroller.View.SimpleScroller;
 /**
  * Created by kevin.tian on 2016/8/9.
  */
-public class MainFragment extends Fragment {
+public class AboutUserFragment extends Fragment {
     private SimpleScroller myScroller;
     private Button layout;
     TextView textView;
