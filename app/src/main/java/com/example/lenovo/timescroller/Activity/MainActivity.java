@@ -70,6 +70,7 @@ public class MainActivity extends BaseActivity implements MenuAdapter.MenuItemCl
             }.getType();
             Gson gson = new Gson();
             mDatas = gson.fromJson(buffer, type);
+            setToolBarTitle(mDatas.get(0).getTitle());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -77,13 +78,12 @@ public class MainActivity extends BaseActivity implements MenuAdapter.MenuItemCl
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", mDatas);
         menuFragment.setArguments(bundle);
-
         fragmentHashMap = new HashMap<>();
 
         fragmentManager.beginTransaction().replace(R.id.main_drawer_fl, menuFragment).commit();
 
         currentFragment = getMenuFragment(0);
-        switchFragment(0);
+        fragmentManager.beginTransaction().add(R.id.main_content, currentFragment).commit();
     }
 
     private void switchFragment(int index) {

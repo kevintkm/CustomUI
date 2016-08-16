@@ -11,18 +11,21 @@ import com.example.lenovo.timescroller.Util.HttpUtil;
 import com.example.lenovo.timescroller.View.ExRecyclerView;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.InjectView;
 
 /**
  * Created by kevin.tian on 2016/8/9.
  */
-public class ProjectLearningFragment extends BaseFragment {
+public class ProjectLearningFragment extends BaseFragment implements ExRecyclerView.OnRefreshListener {
     @InjectView(R.id.fragment_recyclerview)
     ExRecyclerView recyclerView;
     GankAdapter adapter;
-    MeiZhi fuli;
-    MeiZhi shipin;
-    int page=1;
+    List<MeiZhi.ResultsBean> fulis;
+    List<MeiZhi.ResultsBean> shipins;
+    int page = 1;
 
     @Override
     public void setArguments(Bundle args) {
@@ -37,8 +40,10 @@ public class ProjectLearningFragment extends BaseFragment {
 
     @Override
     public void initUI() {
-       super.initUI();
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+        super.initUI();
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        recyclerView.setHeaderView(R.layout.uicomponent_header_view_indiana);
+        recyclerView.setFooterView(R.layout.uicomponent_footer_view_indiana);
         adapter = new GankAdapter(getActivity());
         recyclerView.setAdapter(adapter);
     }
@@ -46,52 +51,85 @@ public class ProjectLearningFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
-        String url = "http://gank.io/api/data/福利/10/"+page;
-        final String shipinUrl = "http://gank.io/api/data/休息视频/10/"+page;
+        fulis = new ArrayList<>();
+        shipins = new ArrayList<>();
+        loadData(page);
+    }
+
+    private void loadData(final int page) {
+        String url = "http://gank.io/api/data/福利/10/" + page;
+        final String shipinUrl = "http://gank.io/api/data/休息视频/10/" + page;
         HttpUtil.getInstance().getAsync(url, new HttpUtil.HttpCallBack() {
             @Override
             public void onLoading() {
-                Log.d("=======","onLoading");
+                Log.d("=======", "onLoading");
             }
 
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
-                fuli = gson.fromJson(result,MeiZhi.class);
+                MeiZhi fuli = gson.fromJson(result, MeiZhi.class);
+                if (page == 1)
+                    fulis.clear();
+                fulis.addAll(fuli.getResults());
                 HttpUtil.getInstance().getAsync(shipinUrl, new HttpUtil.HttpCallBack() {
                     @Override
                     public void onLoading() {
-                        Log.d("=======","onLoading");
+                        Log.d("=======", "onLoading");
                     }
 
                     @Override
                     public void onSuccess(String result) {
                         Gson gson = new Gson();
-                        shipin = gson.fromJson(result,MeiZhi.class);
-                        if (fuli!=null&&fuli.getResults().size()>0){
-                            for (int i=0;i<fuli.getResults().size();i++){
-                                shipin.getResults().get(i).setUrl(fuli.getResults().get(i).getUrl());
-                            }
-                            adapter.setLists(shipin.getResults());
-                            adapter.notifyDataSetChanged();
+                        MeiZhi shipin = gson.fromJson(result, MeiZhi.class);
+                        if (page == 1)
+                            shipins.clear();
+                        shipins.addAll(shipin.getResults());
+                        if (shipin.getResults().size()<10){
+                            recyclerView.onLoadNoMoreComplete();
+                        }else {
+                            recyclerView.onRefreshComplete();
                         }
-
+                        adapter.setLists(handleData(fulis, shipins));
+                        adapter.notifyDataSetChanged();
                     }
 
                     @Override
                     public void onError(String error) {
-                        Log.d("=======",error);
+                        Log.d("=======", error);
                     }
                 });
             }
 
             @Override
             public void onError(String error) {
-                Log.d("=======",error);
+                Log.d("=======", error);
             }
         });
+    }
 
+    private List<MeiZhi.ResultsBean> handleData(List<MeiZhi.ResultsBean> shipins, List<MeiZhi.ResultsBean> fulis) {
+        int count = shipins.size() > fulis.size() ? fulis.size() : shipins.size();
+        for (int i = 0; i < count; i++) {
+            fulis.get(i).setUrl(shipins.get(i).getUrl());
+            StringBuffer sb = new StringBuffer(shipins.get(i).getDesc());
+            sb.append(" ");
+            sb.append(fulis.get(i).getDesc());
+            fulis.get(i).setDesc(sb.toString());
+        }
+        return fulis;
+    }
 
+    @Override
+    public void onHeaderRefresh() {
+        page = 1;
+        loadData(page);
+    }
+
+    @Override
+    public void onFooterRefresh() {
+        page++;
+        loadData(page);
     }
 }
 

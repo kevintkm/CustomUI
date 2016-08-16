@@ -3,6 +3,7 @@ package com.example.lenovo.timescroller.Activity;
 import android.widget.ImageView;
 
 import com.example.lenovo.timescroller.R;
+import com.example.lenovo.timescroller.Util.ImageLoaderUtil;
 
 import butterknife.InjectView;
 
@@ -22,10 +23,12 @@ public class ImageActivity extends BaseActivity {
     @Override
     public void initData() {
         super.initData();
+        ImageLoaderUtil.loadImage(this,extra,image);
     }
 
     @Override
     public void initUI() {
         super.initUI();
+        setToolBarTitle("图片预览");
     }
 }

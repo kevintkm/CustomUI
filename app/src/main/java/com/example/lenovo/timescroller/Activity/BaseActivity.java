@@ -18,13 +18,13 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity extends AppCompatActivity implements IUIControler {
     private Context mContext;
-    private Toolbar mToolbar;
+    protected Toolbar mToolbar;
     private String title;
     protected String extra;
     private static final String OBJECT_EXTRA="extra";
 
     public static void startActivity(Context context, Class<?> activity,String text) {
-        Intent intent = new Intent(context, activity.getClass());
+        Intent intent = new Intent(context, activity);
         intent.putExtra(OBJECT_EXTRA,text);
         context.startActivity(intent);
     }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.example.lenovo.timescroller.Activity.BaseActivity;
 import com.example.lenovo.timescroller.Activity.ImageActivity;
+import com.example.lenovo.timescroller.Activity.RecyclerviewActivity;
 import com.example.lenovo.timescroller.Model.MeiZhi;
 import com.example.lenovo.timescroller.R;
 import com.example.lenovo.timescroller.ViewHolder.BaseRecyclerViewHolder;
