@@ -1,29 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+<com.example.lenovo.timescroller.View.ExRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:id="@+id/myLinearLayout"
+              android:id="@+id/fragment_recyclerview"
               android:layout_height="match_parent">
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="scroll"
-        android:id="@+id/ming"
-         />
-
-    <com.example.lenovo.timescroller.View.SimpleScroller
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" android:id="@+id/myviewGroup">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:background="#ff0000"
-            android:id="@+id/text"
-            android:text="我在這"/>
-
-
-    </com.example.lenovo.timescroller.View.SimpleScroller>
-</LinearLayout>
+</com.example.lenovo.timescroller.View.ExRecyclerView>

@@ -19,6 +19,10 @@ public class MenuAdapter extends BaseRecyclerViewAdapter<MenuBean> {
     Context mContext;
     MenuItemClickListener listener;
 
+    public MenuAdapter(Context context) {
+        this.mContext = context;
+    }
+
     public void setListener(MenuItemClickListener listener) {
         this.listener = listener;
     }
@@ -26,10 +30,6 @@ public class MenuAdapter extends BaseRecyclerViewAdapter<MenuBean> {
     public interface MenuItemClickListener {
         void menuItemClick(Object object);
     }
-    public MenuAdapter(Context mContext) {
-        this.mContext = mContext;
-    }
-
 
     @Override
     public boolean isPinnedItem(int viewType) {

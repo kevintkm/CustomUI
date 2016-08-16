@@ -29,22 +29,7 @@ public class DesignPatternFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_scroll_layout, null);
-        myScroller = (SimpleScroller) view.findViewById(R.id.myviewGroup);
-        layout = (Button) view.findViewById(R.id.ming);
-        textView = (TextView) view.findViewById(R.id.text);
-        final int index=0;
-        ObjectAnimator animator = ObjectAnimator.ofFloat(textView, "translationX", 0, 100,200,300,400,300,200,100);
-        animator.setDuration(9000);
-        animator.start();
-        layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("======",textView.getRight()+"");
-             myScroller.scrollTo(-100);
-
-            }
-        });
+        View view = inflater.inflate(R.layout.fragment_project_layout, null);
         return view;
     }
 

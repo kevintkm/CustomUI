@@ -34,13 +34,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuItemClickListener {
+public class MainActivity extends BaseActivity implements MenuAdapter.MenuItemClickListener {
 
 
     Toolbar toolbar;
     DrawerLayout layout;
     ActionBarDrawerToggle drawerToggle;
-    final Class<?>[] tabFragments = {ProjectLearningFragment.class, CommonWidgetFragment.class , SourceAnalyseFragment.class, MoudleLearningFragment.class,
+    final Class<?>[] tabFragments = {ProjectLearningFragment.class, CommonWidgetFragment.class, SourceAnalyseFragment.class, MoudleLearningFragment.class,
             DesignPatternFragment.class, AboutUserFragment.class};
     FragmentManager fragmentManager;
     Fragment currentFragment;
@@ -49,26 +49,27 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuI
     HashMap<Integer, Fragment> fragmentHashMap;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initUI();
+    protected int setLayoutId() {
+        return R.layout.activity_main;
     }
 
-    private void initUI() {
+    @Override
+    public void initUI() {
         fragmentManager = getSupportFragmentManager();
         toolbar = (Toolbar) findViewById(R.id.toolbars);
         layout = (DrawerLayout) findViewById(R.id.drawer);
         drawerToggle = new ActionBarDrawerToggle(this, layout, toolbar, R.string.open, R.string.close);
+        drawerToggle.syncState();
         layout.setDrawerListener(drawerToggle);
         mDatas = new ArrayList<>();
         AssetManager manager = getAssets();
         try {
             InputStream inputStream = manager.open("menu list.txt");
-            BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
-            Type type = new TypeToken<List<MenuBean>>(){}.getType();
+            BufferedReader buffer = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            Type type = new TypeToken<List<MenuBean>>() {
+            }.getType();
             Gson gson = new Gson();
-            mDatas = gson.fromJson(buffer,type);
+            mDatas = gson.fromJson(buffer, type);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuI
         fragmentManager.beginTransaction().replace(R.id.main_drawer_fl, menuFragment).commit();
 
         currentFragment = getMenuFragment(0);
-        fragmentManager.beginTransaction().add(R.id.main_content, currentFragment).commit();
+        switchFragment(0);
     }
 
     private void switchFragment(int index) {
@@ -101,9 +102,9 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuI
         Fragment fragment = null;
         try {
             fragment = fragmentHashMap.get(index);
-            if (fragment==null){
+            if (fragment == null) {
                 fragment = (Fragment) tabFragments[index].newInstance();
-                fragmentHashMap.put(index,fragment);
+                fragmentHashMap.put(index, fragment);
             }
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -111,12 +112,6 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuI
             e.printStackTrace();
         }
         return fragment;
-    }
-
-    @Override
-    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        drawerToggle.syncState();
     }
 
     @Override
@@ -136,6 +131,8 @@ public class MainActivity extends AppCompatActivity implements MenuAdapter.MenuI
     @Override
     public void menuItemClick(Object object) {
         if (mDatas.contains(object)) {
+            MenuBean bean = (MenuBean) object;
+            setToolBarTitle(bean.getTitle());
             switchFragment(mDatas.indexOf(object));
         }
     }

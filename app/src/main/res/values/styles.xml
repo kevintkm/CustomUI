@@ -19,6 +19,6 @@
     </style>
     <!-- 箭头颜色 -->
     <style name="AppTheme.DrawerArrowToggle" parent="Base.Widget.AppCompat.DrawerArrowToggle">
-        <item name="color">@color/red</item>
+        <item name="color">@color/white</item>
     </style>
 </resources>

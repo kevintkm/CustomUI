@@ -6,6 +6,16 @@ package com.example.lenovo.timescroller.Model;
 public class BaseModel {
     private String page_size;
 
+    private int page;
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
     public String getPage_size() {
         return page_size;
     }
