@@ -1,5 +1,8 @@
 package com.example.lenovo.timescroller.Activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.view.ViewCompat;
 import android.widget.ImageView;
 
 import com.example.lenovo.timescroller.R;
@@ -13,7 +16,15 @@ import butterknife.InjectView;
 public class ImageActivity extends BaseActivity {
     @InjectView(R.id.activity_image_im)
     ImageView image;
+    public static final String PICTURE="picture";
+    public static final String TITLE= "title";
 
+    public static Intent startImageActivity(Context context,String url,String title){
+        Intent intent =new Intent(context,ImageActivity.class);
+        intent.putExtra(BaseActivity.OBJECT_EXTRA,url);
+        intent.putExtra(TITLE,title);
+        return intent;
+    }
 
     @Override
     protected int setLayoutId() {
@@ -23,12 +34,14 @@ public class ImageActivity extends BaseActivity {
     @Override
     public void initData() {
         super.initData();
+        extra = getIntent().getStringExtra(BaseActivity.OBJECT_EXTRA);
+        ViewCompat.setTransitionName(image,PICTURE);
         ImageLoaderUtil.loadImage(this,extra,image);
     }
 
     @Override
     public void initUI() {
         super.initUI();
-        setToolBarTitle("图片预览");
+        setToolBarTitle(getIntent().getStringExtra(TITLE));
     }
 }

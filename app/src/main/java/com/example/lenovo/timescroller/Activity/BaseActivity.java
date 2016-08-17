@@ -21,7 +21,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IUIContr
     protected Toolbar mToolbar;
     private String title;
     protected String extra;
-    private static final String OBJECT_EXTRA="extra";
+    public static final String OBJECT_EXTRA="extra";
 
     public static void startActivity(Context context, Class<?> activity,String text) {
         Intent intent = new Intent(context, activity);

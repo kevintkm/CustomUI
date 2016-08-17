@@ -57,7 +57,7 @@ public class MainActivity extends BaseActivity implements MenuAdapter.MenuItemCl
     public void initUI() {
         fragmentManager = getSupportFragmentManager();
         layout = IFindViewByid(R.id.drawer);
-        drawerToggle = new ActionBarDrawerToggle(this, layout, toolbar, R.string.open, R.string.close);
+        drawerToggle = new ActionBarDrawerToggle(this, layout, mToolbar, R.string.open, R.string.close);
         drawerToggle.syncState();
         layout.setDrawerListener(drawerToggle);
         mDatas = new ArrayList<>();
