@@ -37,7 +37,6 @@ import java.util.List;
 public class MainActivity extends BaseActivity implements MenuAdapter.MenuItemClickListener {
 
 
-    Toolbar toolbar;
     DrawerLayout layout;
     ActionBarDrawerToggle drawerToggle;
     final Class<?>[] tabFragments = {ProjectLearningFragment.class, CommonWidgetFragment.class, SourceAnalyseFragment.class, MoudleLearningFragment.class,

@@ -1,6 +1,5 @@
 package com.example.lenovo.timescroller.Activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,13 +11,15 @@ import com.example.lenovo.timescroller.Inteferce.IUIControler;
 import com.example.lenovo.timescroller.R;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * Created by kevin.tian on 2016/8/15.
  */
 public abstract class BaseActivity extends AppCompatActivity implements IUIControler {
     private Context mContext;
-    protected Toolbar mToolbar;
+    @InjectView(R.id.toolbars)
+    Toolbar mToolbar;
     private String title;
     protected String extra;
     public static final String OBJECT_EXTRA="extra";
@@ -33,6 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IUIContr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setLayoutId());
+        ButterKnife.inject(this);
         extra = getIntent().getStringExtra(OBJECT_EXTRA);
         mContext = this;
         initToolBar();
@@ -40,14 +42,19 @@ public abstract class BaseActivity extends AppCompatActivity implements IUIContr
         initData();
     }
 
-    private void initToolBar() {
-        ButterKnife.inject(this);
-        mToolbar = IFindViewByid(R.id.toolbars);
+    protected void initToolBar() {
         if (mToolbar != null) {
             // mToolbar.setBackgroundColor(getResources().getColor(R.color.theme_color));
             // mToolbar.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.theme_color));
             //  mToolbar.setTitleTextAppearance(this, R.style.ToolBarTitleTextApperance);
             setSupportActionBar(mToolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
         }
     }
 

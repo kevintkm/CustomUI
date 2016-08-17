@@ -5,7 +5,11 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:colorForeground">@color/foreground_material_dark</item>
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -17,6 +21,12 @@
         <!-- 箭头 -->
         <item name="drawerArrowStyle">@style/AppTheme.DrawerArrowToggle</item>
     </style>
+
+   <!-- <style name="WhiteTitleStyle" parent="@android:style/TextAppearance_Holo_Widget_ActionBar_Title">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/sp15</item>
+        </style>-->
+
     <!-- 箭头颜色 -->
     <style name="AppTheme.DrawerArrowToggle" parent="Base.Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@color/white</item>
