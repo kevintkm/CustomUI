@@ -53,8 +53,8 @@ public abstract class BaseActivity extends AppCompatActivity implements IUIContr
 
     public void setToolBarTitle(String title) {
         this.title = title;
-        if (mToolbar != null)
-            mToolbar.setTitle(title);
+        if (getSupportActionBar() != null)
+            getSupportActionBar().setTitle(title);
     }
 
     public String getToolBarTitle() {

@@ -23,7 +23,6 @@ public class ProjectLearningFragment extends BaseFragment implements ExRecyclerV
     @InjectView(R.id.fragment_recyclerview)
     ExRecyclerView recyclerView;
     GankAdapter adapter;
-    List<MeiZhi.ResultsBean> fulis;
     List<MeiZhi.ResultsBean> shipins;
     int page = 1;
 
@@ -44,6 +43,7 @@ public class ProjectLearningFragment extends BaseFragment implements ExRecyclerV
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setHeaderView(R.layout.uicomponent_header_view_indiana);
         recyclerView.setFooterView(R.layout.uicomponent_footer_view_indiana);
+        recyclerView.setOnRefreshListener(this);
         adapter = new GankAdapter(getActivity());
         recyclerView.setAdapter(adapter);
     }
@@ -51,9 +51,8 @@ public class ProjectLearningFragment extends BaseFragment implements ExRecyclerV
     @Override
     public void initData() {
         super.initData();
-        fulis = new ArrayList<>();
         shipins = new ArrayList<>();
-        loadData(page);
+        onHeaderRefresh();
     }
 
     private void loadData(final int page) {
@@ -68,10 +67,7 @@ public class ProjectLearningFragment extends BaseFragment implements ExRecyclerV
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
-                MeiZhi fuli = gson.fromJson(result, MeiZhi.class);
-                if (page == 1)
-                    fulis.clear();
-                fulis.addAll(fuli.getResults());
+                final MeiZhi fuli = gson.fromJson(result, MeiZhi.class);
                 HttpUtil.getInstance().getAsync(shipinUrl, new HttpUtil.HttpCallBack() {
                     @Override
                     public void onLoading() {
@@ -82,15 +78,16 @@ public class ProjectLearningFragment extends BaseFragment implements ExRecyclerV
                     public void onSuccess(String result) {
                         Gson gson = new Gson();
                         MeiZhi shipin = gson.fromJson(result, MeiZhi.class);
-                        if (page == 1)
-                            shipins.clear();
-                        shipins.addAll(shipin.getResults());
                         if (shipin.getResults().size()<10){
                             recyclerView.onLoadNoMoreComplete();
                         }else {
                             recyclerView.onRefreshComplete();
                         }
-                        adapter.setLists(handleData(fulis, shipins));
+                        if (page == 1) {
+                            shipins.clear();
+                        }
+                        shipins.addAll(handleData(fuli.getResults(), shipin.getResults()));
+                        adapter.setLists(shipins);
                         adapter.notifyDataSetChanged();
                     }
 

@@ -15,11 +15,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+
 import com.example.lenovo.timescroller.Adapter.BaseRecyclerViewAdapter;
+import com.example.lenovo.timescroller.R;
 import com.example.lenovo.timescroller.ViewHolder.DynamicRecyclerViewHolder;
 import com.example.lenovo.timescroller.ViewHolder.HFRecyclerViewHolder;
 import com.example.lenovo.timescroller.ViewHolder.SingleLineRecyclerViewHolder;
-import com.example.lenovo.timescroller.R;
 
 import java.util.ArrayList;
 
@@ -585,7 +586,13 @@ public class ExRecyclerView extends RecyclerView {
                 return true;
             }
         }
-        return super.dispatchTouchEvent(ev);
+        boolean dispatchTouchEventBool = false;
+        try {
+            dispatchTouchEventBool = super.dispatchTouchEvent(ev);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return dispatchTouchEventBool;
     }
 
     @Override
@@ -616,6 +623,11 @@ public class ExRecyclerView extends RecyclerView {
                 @Override
                 public void onChanged() {
                     notifyDataSetChanged();
+                }
+
+                @Override
+                public void onItemRangeInserted(int positionStart, int itemCount) {
+                    notifyItemRangeInserted(positionStart, itemCount);
                 }
 
                 @Override

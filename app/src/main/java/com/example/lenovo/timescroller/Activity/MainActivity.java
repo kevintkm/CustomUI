@@ -56,8 +56,7 @@ public class MainActivity extends BaseActivity implements MenuAdapter.MenuItemCl
     @Override
     public void initUI() {
         fragmentManager = getSupportFragmentManager();
-        toolbar = (Toolbar) findViewById(R.id.toolbars);
-        layout = (DrawerLayout) findViewById(R.id.drawer);
+        layout = IFindViewByid(R.id.drawer);
         drawerToggle = new ActionBarDrawerToggle(this, layout, toolbar, R.string.open, R.string.close);
         drawerToggle.syncState();
         layout.setDrawerListener(drawerToggle);
@@ -79,7 +78,7 @@ public class MainActivity extends BaseActivity implements MenuAdapter.MenuItemCl
         bundle.putSerializable("data", mDatas);
         menuFragment.setArguments(bundle);
         fragmentHashMap = new HashMap<>();
-
+        setToolBarTitle(mDatas.get(0).getTitle());
         fragmentManager.beginTransaction().replace(R.id.main_drawer_fl, menuFragment).commit();
 
         currentFragment = getMenuFragment(0);
