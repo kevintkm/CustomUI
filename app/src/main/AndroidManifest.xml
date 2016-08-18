@@ -22,8 +22,7 @@
         <activity android:name="com.example.lenovo.timescroller.Activity.ImageActivity"
                   android:screenOrientation="portrait"
                   />
-        <activity android:name=".Activity.RecyclerviewActivity"
-                  />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>

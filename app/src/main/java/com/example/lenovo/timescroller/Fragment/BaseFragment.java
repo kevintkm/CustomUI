@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.lenovo.timescroller.Activity.BaseActivity;
 import com.example.lenovo.timescroller.Inteferce.IUIControler;
 
 import butterknife.ButterKnife;
@@ -65,6 +66,10 @@ public abstract class BaseFragment extends Fragment implements IUIControler{
         }
     }
 
+    protected void setToolBarTitle(String title){
+        ((BaseActivity)mContext).setToolBarTitle(title);
+    }
+
     @Override
     public void initUI() {
         ButterKnife.inject(this, getContentView());
@@ -73,5 +78,11 @@ public abstract class BaseFragment extends Fragment implements IUIControler{
     @Override
     public void initData() {
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroy();
+        ButterKnife.reset(this);
     }
 }

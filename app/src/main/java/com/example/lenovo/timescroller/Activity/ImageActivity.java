@@ -35,7 +35,6 @@ public class ImageActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        super.initData();
         extra = getIntent().getStringExtra(BaseActivity.OBJECT_EXTRA);
         ViewCompat.setTransitionName(image,PICTURE);
         ImageLoaderUtil.loadImage(this,extra,image);
@@ -43,7 +42,6 @@ public class ImageActivity extends BaseActivity {
 
     @Override
     public void initUI() {
-        super.initUI();
         setToolBarTitle(getIntent().getStringExtra(TITLE));
     }
 }

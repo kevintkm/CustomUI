@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.example.lenovo.timescroller.Adapter.MenuAdapter;
 import com.example.lenovo.timescroller.Fragment.AboutUserFragment;
 import com.example.lenovo.timescroller.Fragment.DesignPatternFragment;
+import com.example.lenovo.timescroller.Fragment.GankFragment;
 import com.example.lenovo.timescroller.Fragment.MoudleLearningFragment;
 import com.example.lenovo.timescroller.Fragment.ProjectLearningFragment;
 import com.example.lenovo.timescroller.Fragment.MenuFragment;
@@ -39,7 +40,7 @@ public class MainActivity extends BaseActivity implements MenuAdapter.MenuItemCl
 
     DrawerLayout layout;
     ActionBarDrawerToggle drawerToggle;
-    final Class<?>[] tabFragments = {ProjectLearningFragment.class, CommonWidgetFragment.class, SourceAnalyseFragment.class, MoudleLearningFragment.class,
+    final Class<?>[] tabFragments = {ProjectLearningFragment.class, GankFragment.class, SourceAnalyseFragment.class, MoudleLearningFragment.class,
             DesignPatternFragment.class, AboutUserFragment.class};
     FragmentManager fragmentManager;
     Fragment currentFragment;
@@ -82,6 +83,11 @@ public class MainActivity extends BaseActivity implements MenuAdapter.MenuItemCl
 
         currentFragment = getMenuFragment(0);
         fragmentManager.beginTransaction().add(R.id.main_content, currentFragment).commit();
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     private void switchFragment(int index) {

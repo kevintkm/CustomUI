@@ -75,12 +75,8 @@ public abstract class BaseActivity extends AppCompatActivity implements IUIContr
     protected abstract int setLayoutId();
 
     @Override
-    public void initUI() {
-
-    }
+    public abstract void initUI() ;
 
     @Override
-    public void initData() {
-
-    }
+    public abstract void initData();
 }

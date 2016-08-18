@@ -1,21 +1,13 @@
 package com.example.lenovo.timescroller.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.lenovo.timescroller.Activity.BaseActivity;
-import com.example.lenovo.timescroller.Activity.ImageActivity;
-import com.example.lenovo.timescroller.Activity.MainActivity;
-import com.example.lenovo.timescroller.Activity.RecyclerviewActivity;
 import com.example.lenovo.timescroller.Model.MeiZhi;
 import com.example.lenovo.timescroller.R;
-import com.example.lenovo.timescroller.ViewHolder.BaseRecyclerViewHolder;
 import com.example.lenovo.timescroller.ViewHolder.GankViewHolder;
 
 /**

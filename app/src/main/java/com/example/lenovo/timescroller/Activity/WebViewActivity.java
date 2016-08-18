@@ -21,6 +21,7 @@ public class WebViewActivity extends BaseActivity {
     protected ProgressBar mProgressBar;
     private String mUrl;
 
+    @Override
     public void initUI() {
         mProgressBar = IFindViewByid(R.id.progressbar);
         mWebView = IFindViewByid(R.id.webView);
@@ -33,13 +34,18 @@ public class WebViewActivity extends BaseActivity {
 
         setToolBarTitle("加载中……");
         //监听toolbar左上角后退按钮
-       mToolbar .setNavigationOnClickListener(new View.OnClickListener() {
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
 
+
+    }
+
+    @Override
+    public void initData() {
 
     }
 
