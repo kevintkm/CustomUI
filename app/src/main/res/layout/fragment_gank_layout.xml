@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
        >
 
-        <com.example.lenovo.timescroller.View.ExRecyclerView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_gank"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -67,7 +67,7 @@
         android:id="@+id/stub_video_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout="@layout/text_scrollview"
+        android:layout="@layout/view_video"
         android:inflatedId="@+id/inflate_video_view"
         />
 

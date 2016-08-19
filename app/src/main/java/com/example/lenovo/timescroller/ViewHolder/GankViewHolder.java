@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.lenovo.timescroller.Activity.Gank1Activity;
+import com.example.lenovo.timescroller.Activity.GankActivity;
 import com.example.lenovo.timescroller.Activity.ImageActivity;
 import com.example.lenovo.timescroller.Activity.MainActivity;
 import com.example.lenovo.timescroller.Model.MeiZhi;
@@ -56,7 +58,7 @@ public class GankViewHolder extends BaseRecyclerViewHolder{
         super.onItemClick(index, object);
         MeiZhi.ResultsBean bean = (MeiZhi.ResultsBean) object;
         if (index==0)
-            Log.d("=========","ItemClick");
+            GankActivity.startGankActivity(mContext,bean.getPublishedAt());
         if (index==1){
             //添加系统原生Activity跳转动画
             Intent intent = ImageActivity.startImageActivity(mContext,bean.getUrl(),bean.getDesc());

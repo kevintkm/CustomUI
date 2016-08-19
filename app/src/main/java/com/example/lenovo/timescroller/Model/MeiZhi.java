@@ -1,5 +1,6 @@
 package com.example.lenovo.timescroller.Model;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,7 +48,7 @@ public class MeiZhi extends BaseModel{
         private String _id;
         private String createdAt;
         private String desc;
-        private String publishedAt;
+        private Date publishedAt;
         private String source;
         private String type;
         private String url;
@@ -78,11 +79,11 @@ public class MeiZhi extends BaseModel{
             this.desc = desc;
         }
 
-        public String getPublishedAt() {
+        public Date getPublishedAt() {
             return publishedAt;
         }
 
-        public void setPublishedAt(String publishedAt) {
+        public void setPublishedAt(Date publishedAt) {
             this.publishedAt = publishedAt;
         }
 
