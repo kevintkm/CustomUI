@@ -1,5 +1,7 @@
 package com.example.lenovo.timescroller.Activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -20,6 +22,12 @@ public class WebViewActivity extends BaseActivity {
     protected WebView mWebView;
     protected ProgressBar mProgressBar;
     private String mUrl;
+
+    public static void startWebActivity(String url, Context context) {
+        Intent intent = new Intent(context, WebViewActivity.class);
+        intent.putExtra(URL, url);
+        context.startActivity(intent);
+    }
 
     @Override
     public void initUI() {
@@ -46,7 +54,7 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
+        mUrl = getIntent().getStringExtra(URL);
     }
 
     private void initWebViewSetting() {

@@ -11,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
+import com.example.lenovo.timescroller.Activity.WebViewActivity;
 import com.example.lenovo.timescroller.Model.MeiZhi;
 import com.example.lenovo.timescroller.R;
 import com.example.lenovo.timescroller.ViewHolder.BaseRecyclerViewHolder;
@@ -126,8 +127,7 @@ public class GankDetailAdapter extends BaseRecyclerViewAdapter<MeiZhi.ResultsBea
         @OnClick(R.id.ll_gank_parent)
         void onGank(View v) {
             MeiZhi.ResultsBean gank = lists.get(getLayoutPosition());
-//            Intent intent = WebActivity.newIntent(v.getContext(), gank.url, gank.desc);
-//            v.getContext().startActivity(intent);
+            WebViewActivity.startWebActivity(gank.getUrl(),mContext);
         }
     }
 }

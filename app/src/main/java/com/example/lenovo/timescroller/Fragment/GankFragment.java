@@ -74,6 +74,7 @@ public class GankFragment extends BaseFragment {
         setRetainInstance(true);
         setHasOptionsMenu(true);
         parseDate();
+        netWork();
     }
 
     private void parseDate() {
@@ -87,7 +88,6 @@ public class GankFragment extends BaseFragment {
     @Override
     public void initUI() {
         super.initUI();
-        setToolBarTitle(date);
         initRecycleView();
         setVideoViewPosition(getResources().getConfiguration());
     }
@@ -147,6 +147,9 @@ public class GankFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
+    }
+
+    private void netWork() {
         String url = "http://gank.io/api/day/" + date;
         HttpUtil.getInstance().getAsync(url, new HttpUtil.HttpCallBack() {
             @Override

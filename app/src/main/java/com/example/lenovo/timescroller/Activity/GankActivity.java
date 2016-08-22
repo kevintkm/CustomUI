@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 
 import com.example.lenovo.timescroller.Adapter.GankPageAdapter;
 import com.example.lenovo.timescroller.R;
+import com.example.lenovo.timescroller.Util.DateUtil;
 
 import java.util.Date;
 
@@ -17,14 +19,13 @@ import butterknife.InjectView;
  * Created by kevin.tian on 2016/8/18.
  */
 public class GankActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
-    @InjectView(R.id.activity_gank_tb)
+    @InjectView(R.id.tabLayout)
     TabLayout activityGankTb;
     @InjectView(R.id.activity_gank_vp)
     ViewPager activityGankVp;
     GankPageAdapter adapter;
     public static final String DATE = "date";
     private Date date;
-
 
     public static void startGankActivity(Context context, Date date) {
         Intent intent = new Intent(context, GankActivity.class);
@@ -45,6 +46,7 @@ public class GankActivity extends BaseActivity implements ViewPager.OnPageChange
     @Override
     public void initUI() {
         date = (Date) getIntent().getSerializableExtra(DATE);
+        setTitle(DateUtil.getYear(date)+"/"+(DateUtil.getMonth(date)+1)+"/"+DateUtil.getDay(date));
         initViewPage();
         initTabLayout();
     }
@@ -71,7 +73,7 @@ public class GankActivity extends BaseActivity implements ViewPager.OnPageChange
 
     @Override
     public void onPageSelected(int position) {
-        setTitle(date.toString());
+        setTitle(DateUtil.getYear(date)+"/"+(DateUtil.getMonth(date)+1)+"/"+(DateUtil.getDay(date)-position));
     }
 
     @Override

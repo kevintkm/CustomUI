@@ -119,6 +119,7 @@ public class ProjectLearningFragment extends BaseFragment implements ExRecyclerV
 
     @Override
     public void onHeaderRefresh() {
+        recyclerView.setOnTopRefresh();
         page = 1;
         loadData(page);
     }
