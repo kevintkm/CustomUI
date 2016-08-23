@@ -6,7 +6,6 @@ package com.example.lenovo.timescroller.Model;
  */
 public class GetJoinDetailRequest extends BaseModel{
     private String goodsId;
-    private int page;
     private int findType;
     private String shopType;
 
@@ -25,15 +24,6 @@ public class GetJoinDetailRequest extends BaseModel{
 
     public void setGoodsId(String goodsId) {
         this.goodsId = goodsId;
-    }
-
-    public int getPage() {
-        return page;
-    }
-
-
-    public void setPage(int page) {
-        this.page = page;
     }
 
     public int getFindType() {

@@ -80,7 +80,7 @@ public class GankFragment extends BaseFragment {
     private void parseDate() {
         Bundle bundle = getArguments();
         mYear = bundle.getInt(YEAR);
-        mMonth = bundle.getInt(MONTH);
+        mMonth = bundle.getInt(MONTH)+1;
         mDay = bundle.getInt(DAY);
         date = mYear+"/"+mMonth+"/"+mDay;
     }

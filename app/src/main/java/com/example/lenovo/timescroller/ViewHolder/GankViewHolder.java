@@ -16,6 +16,7 @@ import com.example.lenovo.timescroller.Activity.ImageActivity;
 import com.example.lenovo.timescroller.Activity.MainActivity;
 import com.example.lenovo.timescroller.Model.MeiZhi;
 import com.example.lenovo.timescroller.R;
+import com.example.lenovo.timescroller.Util.ImageLoaderUtil;
 import com.example.lenovo.timescroller.View.RatioImageView;
 
 /**
@@ -37,7 +38,7 @@ public class GankViewHolder extends BaseRecyclerViewHolder{
     public void setData(Object object) {
         imageView.setOriginalSize(50,50);
         final MeiZhi.ResultsBean bean = (MeiZhi.ResultsBean) object;
-        Glide.with(context).load(bean.getUrl()).into(imageView);
+        ImageLoaderUtil.loadImage(context,bean.getUrl(),imageView);
         textView.setText(bean.getDesc());
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
