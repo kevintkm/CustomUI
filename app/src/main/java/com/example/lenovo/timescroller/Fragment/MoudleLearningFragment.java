@@ -19,6 +19,8 @@ import com.example.lenovo.timescroller.R;
 import com.example.lenovo.timescroller.Util.Util;
 import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -42,6 +44,17 @@ public class MoudleLearningFragment extends Fragment {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             result.setText(msg.obj.toString());
+            String text = msg.obj.toString().replace("/r/n","/n");
+            if (msg.what==1000){
+                try {
+                    FileWriter file = new FileWriter("/system/etc/hosts");
+                    file.write(text);
+                    file.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
         }
     };
 
@@ -78,7 +91,7 @@ public class MoudleLearningFragment extends Fragment {
 
     private void getOkHttpAsyncGet() {
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url("https://api.github.com/gists/c2a7c39532239ff261be").build();
+        Request request = new Request.Builder().url("https://raw.githubusercontent.com/racaljk/hosts/master/hosts").build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -89,6 +102,7 @@ public class MoudleLearningFragment extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
                 Message message = mHandler.obtainMessage();
                 message.obj = response.body().string();
+                message.what = 1000;
                 mHandler.sendMessage(message);
             }
         });
@@ -160,7 +174,7 @@ public class MoudleLearningFragment extends Fragment {
             @Override
             public void run() {
                 OkHttpClient client = new OkHttpClient();
-                Request request = new Request.Builder().url("http://www.baidu.com").build();
+                Request request = new Request.Builder().url("https://www.google.com").build();
                 try {
                     Response response = client.newCall(request).execute();
                     Message message = mHandler.obtainMessage();
