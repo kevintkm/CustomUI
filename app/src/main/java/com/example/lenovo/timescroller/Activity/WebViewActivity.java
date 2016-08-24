@@ -31,7 +31,6 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     public void initUI() {
-        mUrl = getIntent().getStringExtra(URL);
         mProgressBar = IFindViewByid(R.id.progressbar);
         mWebView = IFindViewByid(R.id.webView);
         initWebViewSetting();
@@ -55,7 +54,7 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
+        mUrl = getIntent().getStringExtra(URL);
     }
 
     private void initWebViewSetting() {
