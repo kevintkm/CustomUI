@@ -1,5 +1,6 @@
 package com.example.lenovo.timescroller.Fragment;
 
+import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ public abstract class BaseFragment extends Fragment implements IUIControler{
 
     private Context mContext;
 
+    private Application application;
+
     private ProgressDialog mDialog;
 
 
@@ -31,7 +34,9 @@ public abstract class BaseFragment extends Fragment implements IUIControler{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContentView = inflater.inflate(setLayoutId(),container,false);
+        ButterKnife.inject(this, getContentView());
         mContext = getContext();
+        application = getApplication();
         initUI();
         initData();
         return mContentView;
@@ -43,6 +48,10 @@ public abstract class BaseFragment extends Fragment implements IUIControler{
 
     protected Context getmContext(){
         return mContext;
+    }
+
+    protected Application getApplication(){
+        return application;
     }
 
     protected <T extends View> T IFindViwById(int layoutId){
@@ -72,7 +81,8 @@ public abstract class BaseFragment extends Fragment implements IUIControler{
 
     @Override
     public void initUI() {
-        ButterKnife.inject(this, getContentView());
+
+
     }
 
     @Override

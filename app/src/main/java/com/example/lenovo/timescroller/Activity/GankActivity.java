@@ -13,6 +13,7 @@ import com.example.lenovo.timescroller.Util.DateUtil;
 
 import java.util.Date;
 
+import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
@@ -69,6 +70,16 @@ public class GankActivity extends BaseActivity implements ViewPager.OnPageChange
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        activityGankVp.removeOnPageChangeListener(this);
+        activityGankTb = null;
+        activityGankVp = null;
+        adapter = null;
+        super.onDestroy();
+        ButterKnife.reset(this);
     }
 
     @Override

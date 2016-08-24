@@ -1,5 +1,6 @@
 package com.example.lenovo.timescroller.Activity;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import butterknife.InjectView;
  */
 public abstract class BaseActivity extends AppCompatActivity implements IUIControler {
     private Context mContext;
+    private Application application;
     @InjectView(R.id.toolbars)
     Toolbar mToolbar;
     private String title;
@@ -36,6 +38,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IUIContr
         setContentView(setLayoutId());
         ButterKnife.inject(this);
         extra = getIntent().getStringExtra(OBJECT_EXTRA);
+        application = getApplication();
         mContext = this;
         initToolBar();
         initUI();

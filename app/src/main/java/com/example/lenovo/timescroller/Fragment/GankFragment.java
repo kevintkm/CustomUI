@@ -8,8 +8,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.lenovo.timescroller.Adapter.GankDetailAdapter;
 import com.example.lenovo.timescroller.Model.DayBean;
 import com.example.lenovo.timescroller.Model.MeiZhi;
@@ -23,6 +25,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
@@ -35,8 +38,6 @@ public class GankFragment extends BaseFragment {
     public static final String DAY = "day";
     @InjectView(R.id.rv_gank)
     RecyclerView rvGank;
-    @InjectView(R.id.iv_video)
-    VideoImageView ivVideo;
     @InjectView(R.id.stub_empty_view)
     ViewStub stubEmptyView;
     @InjectView(R.id.stub_video_view)
@@ -45,7 +46,7 @@ public class GankFragment extends BaseFragment {
     String date;
     List<MeiZhi.ResultsBean> beanList;
     @InjectView(R.id.iv_video)
-    VideoImageView mVideoImageView;
+    ImageView mVideoImageView;
     LoveVideoView mVideoView;
     String mVideoPreviewUrl;
     boolean mIsVideoViewInflated = false;
@@ -102,7 +103,8 @@ public class GankFragment extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (mVideoPreviewUrl != null) {
-            ImageLoaderUtil.loadImage(getmContext(), mVideoPreviewUrl, mVideoImageView);
+            //ImageLoaderUtil.loadImage(getApplication(), mVideoPreviewUrl, mVideoImageView);
+            Glide.with(getmContext()).load(mVideoPreviewUrl).placeholder(R.drawable.kevin).into(mVideoImageView);
         }
     }
 
@@ -241,4 +243,14 @@ public class GankFragment extends BaseFragment {
         return beanList;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mVideoImageView = null;
+        adapter = null;
+        rvGank = null;
+        mVideoView = null;
+        ButterKnife.reset(this);
+
+    }
 }

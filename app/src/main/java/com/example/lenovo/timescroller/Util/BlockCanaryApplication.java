@@ -3,6 +3,7 @@ package com.example.lenovo.timescroller.Util;
 import android.app.Application;
 
 import com.github.moduth.blockcanary.BlockCanary;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * Created by kevin.tian on 2016/8/22.
@@ -12,5 +13,6 @@ public class BlockCanaryApplication extends Application{
     public void onCreate() {
         super.onCreate();
         BlockCanary.install(this,new AppBlockCanaryContext()).start();
+        LeakCanary.install(this);
     }
 }

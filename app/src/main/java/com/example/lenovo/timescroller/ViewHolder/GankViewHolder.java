@@ -38,7 +38,7 @@ public class GankViewHolder extends BaseRecyclerViewHolder{
     public void setData(Object object) {
         imageView.setOriginalSize(50,50);
         final MeiZhi.ResultsBean bean = (MeiZhi.ResultsBean) object;
-        ImageLoaderUtil.loadImage(context,bean.getUrl(),imageView);
+        ImageLoaderUtil.loadImage(context.getApplicationContext(),bean.getUrl(),imageView);
         textView.setText(bean.getDesc());
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
