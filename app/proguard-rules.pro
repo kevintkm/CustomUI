@@ -14,4 +14,7 @@
 # class:
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
+-keepnames class com.example.lenovo.timescroller.Util.GlideMoudleCS
+# or more generally:
+#-keep public class * implements com.bumptech.glide.module.GlideModule
 #}
