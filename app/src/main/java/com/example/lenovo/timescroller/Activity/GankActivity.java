@@ -75,9 +75,6 @@ public class GankActivity extends BaseActivity implements ViewPager.OnPageChange
     @Override
     protected void onDestroy() {
         activityGankVp.removeOnPageChangeListener(this);
-        activityGankTb = null;
-        activityGankVp = null;
-        adapter = null;
         super.onDestroy();
         ButterKnife.reset(this);
     }

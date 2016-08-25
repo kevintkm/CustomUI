@@ -246,9 +246,6 @@ public class GankFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mVideoImageView = null;
-        adapter = null;
-        rvGank = null;
         mVideoView = null;
         ButterKnife.reset(this);
 

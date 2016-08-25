@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.lenovo.timescroller.R;
-import com.example.lenovo.timescroller.Util.ImageLoaderUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -52,7 +51,10 @@ public class ImageActivity extends BaseActivity {
         title = getIntent().getStringExtra(TITLE);
         ViewCompat.setTransitionName(image, PICTURE);
         //ImageLoaderUtil.loadImage(this,extra,image);
-        Glide.with(this).load(extra).asBitmap().placeholder(R.drawable.kevin).into(new SimpleTarget<Bitmap>() {
+        /**
+         * new SimpleTarget<Bitmap>保持context引用问题
+         */
+        Glide.with(getApplicationContext()).load(extra).asBitmap().placeholder(R.drawable.kevin).into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                 bitmap = resource;
@@ -108,7 +110,6 @@ public class ImageActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         bitmap = null;
-        image = null;
         ButterKnife.reset(this);
     }
 
