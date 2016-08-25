@@ -1,9 +1,11 @@
 package com.example.lenovo.timescroller.Fragment;
 
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 
+import com.bumptech.glide.Glide;
 import com.example.lenovo.timescroller.Adapter.GankAdapter;
 import com.example.lenovo.timescroller.Model.MeiZhi;
 import com.example.lenovo.timescroller.R;
@@ -46,6 +48,21 @@ public class ProjectLearningFragment extends BaseFragment implements ExRecyclerV
         recyclerView.setOnRefreshListener(this);
         adapter = new GankAdapter(getActivity());
         recyclerView.setAdapter(adapter);
+        recyclerView.setOnExScrollListener(new ExRecyclerView.OnExScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState==RecyclerView.SCROLL_STATE_IDLE){
+                    Glide.with(getmContext()).resumeRequests();
+                }else {
+                    Glide.with(getmContext()).pauseRequests();
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+            }
+        });
     }
 
     @Override
