@@ -1,26 +1,93 @@
 package com.example.lenovo.timescroller.Fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.lenovo.timescroller.Adapter.TnGouPagerAdapter;
+import com.example.lenovo.timescroller.Model.TnGouClassify;
 import com.example.lenovo.timescroller.R;
+import com.example.lenovo.timescroller.Util.BaseUrl;
+import com.example.lenovo.timescroller.Util.HttpUtil;
+import com.example.lenovo.timescroller.View.ExRecyclerView;
+import com.google.gson.Gson;
+
+import java.util.List;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * Created by kevin.tian on 2016/8/9.
  */
-public class CommonWidgetFragment extends Fragment{
+public class CommonWidgetFragment extends BaseFragment {
+    @InjectView(R.id.widget_tablayout)
+    TabLayout widgetTablayout;
+    @InjectView(R.id.widget_viewpager)
+    ViewPager widgetViewPager;
+    List<TnGouClassify.TngouBean> beanList;
+    TnGouPagerAdapter adapter;
+
     @Override
     public void setArguments(Bundle args) {
         super.setArguments(args);
     }
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.text_scrollview,null);
+    protected int setLayoutId() {
+        return R.layout.fragment_widget_layout;
+    }
+
+    @Override
+    public void initUI() {
+        adapter = new TnGouPagerAdapter(getActivity().getSupportFragmentManager());
+        widgetViewPager.setAdapter(adapter);
+        widgetTablayout.setupWithViewPager(widgetViewPager);
+    }
+
+    @Override
+    public void initData() {
+        getNavigation();
+
+    }
+
+    private void getNavigation() {
+        HttpUtil.getInstance().getAsync(BaseUrl.TNGOU_CLASSIFY, new HttpUtil.HttpCallBack() {
+            @Override
+            public void onLoading() {
+
+            }
+
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                TnGouClassify classify = gson.fromJson(result,TnGouClassify.class);
+                beanList = classify.getTngou();
+                handleNavigation(beanList);
+            }
+
+            @Override
+            public void onError(String error) {
+
+            }
+        });
+    }
+
+    private void handleNavigation(List<TnGouClassify.TngouBean> beanList) {
+
+        adapter.setBeanList(beanList);
+        adapter.notifyDataSetChanged();
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.reset(this);
     }
 }

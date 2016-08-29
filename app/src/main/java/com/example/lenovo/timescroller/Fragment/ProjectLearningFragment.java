@@ -41,7 +41,6 @@ public class ProjectLearningFragment extends BaseFragment implements ExRecyclerV
 
     @Override
     public void initUI() {
-        super.initUI();
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setHeaderView(R.layout.uicomponent_header_view_indiana);
         recyclerView.setFooterView(R.layout.uicomponent_footer_view_indiana);
@@ -67,7 +66,6 @@ public class ProjectLearningFragment extends BaseFragment implements ExRecyclerV
 
     @Override
     public void initData() {
-        super.initData();
         shipins = new ArrayList<>();
         onHeaderRefresh();
     }
@@ -118,6 +116,7 @@ public class ProjectLearningFragment extends BaseFragment implements ExRecyclerV
             @Override
             public void onError(String error) {
                 Log.d("=======", error);
+                recyclerView.onRefreshComplete();
             }
         });
     }

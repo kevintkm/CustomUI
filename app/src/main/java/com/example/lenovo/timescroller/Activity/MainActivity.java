@@ -40,7 +40,7 @@ public class MainActivity extends BaseActivity implements MenuAdapter.MenuItemCl
 
     DrawerLayout layout;
     ActionBarDrawerToggle drawerToggle;
-    final Class<?>[] tabFragments = {ProjectLearningFragment.class, GankFragment.class, SourceAnalyseFragment.class, MoudleLearningFragment.class,
+    final Class<?>[] tabFragments = {CommonWidgetFragment.class, ProjectLearningFragment.class, SourceAnalyseFragment.class, MoudleLearningFragment.class,
             DesignPatternFragment.class, AboutUserFragment.class};
     FragmentManager fragmentManager;
     Fragment currentFragment;

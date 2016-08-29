@@ -80,15 +80,10 @@ public abstract class BaseFragment extends Fragment implements IUIControler{
     }
 
     @Override
-    public void initUI() {
-
-
-    }
+    public abstract void initUI();
 
     @Override
-    public void initData() {
-
-    }
+    public abstract void initData();
 
     @Override
     public void onDestroyView() {

@@ -88,7 +88,6 @@ public class GankFragment extends BaseFragment {
 
     @Override
     public void initUI() {
-        super.initUI();
         initRecycleView();
         setVideoViewPosition(getResources().getConfiguration());
     }
@@ -148,7 +147,7 @@ public class GankFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        super.initData();
+
     }
 
     private void netWork() {

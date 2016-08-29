@@ -651,4 +651,14 @@ public class Util {
         fragment.startActivityForResult(intent, requestCode);
     }
 
+    public static String objectToJson (Object object){
+        Gson gson = new Gson();
+        return gson.toJson(object);
+    }
+
+    public  static Object jsonToObject (String result , Class<?> className){
+        Gson gson = new Gson();
+        return gson.fromJson(result,className);
+    }
+
 }
