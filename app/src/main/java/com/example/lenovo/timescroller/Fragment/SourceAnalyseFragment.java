@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.lenovo.timescroller.R;
+import com.example.lenovo.timescroller.View.DragViewGroup;
 import com.example.lenovo.timescroller.View.SimpleScroller;
 
 /**
@@ -23,7 +24,15 @@ public class SourceAnalyseFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.text_scrollview,null);
+        DragViewGroup viewGroup = new DragViewGroup(getContext());
+        viewGroup.setTextColor(getResources().getColor(R.color.red));
+        viewGroup.setPadding(20,20,20,20);
+        viewGroup.setBackgroundColor(getResources().getColor(R.color.blue));
+        ViewGroup.LayoutParams params = container.getLayoutParams();
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        params.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        viewGroup.setLayoutParams(params);
+        return viewGroup;
     }
 
 }
