@@ -7,9 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.lenovo.timescroller.R;
+import com.example.lenovo.timescroller.View.DragViewGroup;
 import com.example.lenovo.timescroller.View.SimpleScroller;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by kevin.tian on 2016/8/9.
@@ -23,7 +28,19 @@ public class SourceAnalyseFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.text_scrollview,null);
+        //TODO
+        /**
+         * 多次循环向四周拖动，viewGroup会越来越小
+         */
+        DragViewGroup viewGroup = new DragViewGroup(getContext());
+        viewGroup.setPadding(50,50,50,50);
+        viewGroup.setBackgroundColor(getResources().getColor(R.color.A9A9A9));
+        Button textView = new Button(getContext());
+        textView.setPadding(120,120,120,120);
+        textView.setText("ViewGroup拖拽");
+        textView.setBackgroundColor(getResources().getColor(R.color.blue));
+        viewGroup.addView(textView);
+        return viewGroup;
     }
 
 }
