@@ -13,11 +13,16 @@ import android.widget.LinearLayout;
 public class DragViewGroup extends LinearLayout {
 
     /**
-     * 多点触控导致第二个手指触摸是，View会偏移位置
+     * 多点触控导致第二个手指触摸是，View会偏移位置(在ACTION_POINTER_UP中重新选择操作点)
      */
 
     private float mLastX;
     private float mLastY;
+
+    // The ‘active pointer’ is the one currently moving our object.
+    private int INVALID_POINTER_ID = -1000;
+    private int mActivePointerId = INVALID_POINTER_ID;
+
 
     public DragViewGroup(Context context) {
         this(context, null);
@@ -42,17 +47,46 @@ public class DragViewGroup extends LinearLayout {
 //                mLastY = event.getY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                float currentX = event.getX();
-                float currentY = event.getY();
+
+                final int pointerIndex =
+                        MotionEventCompat.findPointerIndex(event, mActivePointerId);
+
+                final float x = MotionEventCompat.getX(event, pointerIndex);
+                final float y = MotionEventCompat.getY(event, pointerIndex);
+
+                float currentX = x;
+                float currentY = y;
                 float dx = currentX - mLastX;
                 float dy = currentY - mLastY;
                 layout((int) (getLeft() + dx), (int) (getTop() + dy), (int) (getRight() + dx), (int) (getBottom() + dy));
                 invalidate();
                 break;
-            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_UP: {
+                mActivePointerId = INVALID_POINTER_ID;
                 break;
+            }
 
+            case MotionEvent.ACTION_CANCEL: {
+                mActivePointerId = INVALID_POINTER_ID;
+                break;
+            }
+            case MotionEvent.ACTION_POINTER_UP: {
+
+                int pointerInd = MotionEventCompat.getActionIndex(event);
+                final int pointerId = MotionEventCompat.getPointerId(event, pointerInd);
+
+                if (pointerId == mActivePointerId) {
+                    // This was our active pointer going up. Choose a new
+                    // active pointer and adjust accordingly.
+                    final int newPointerIndex = pointerInd == 0 ? 1 : 0;
+                    mLastX = MotionEventCompat.getX(event, newPointerIndex);
+                    mLastY = MotionEventCompat.getY(event, newPointerIndex);
+                    mActivePointerId = MotionEventCompat.getPointerId(event, newPointerIndex);
+                }
+                break;
+            }
         }
+
 
         return true;
     }
@@ -65,9 +99,17 @@ public class DragViewGroup extends LinearLayout {
             case MotionEvent.ACTION_MOVE:
                 return true;
             case MotionEvent.ACTION_DOWN:
-                mLastX = event.getX();
-                mLastY= event.getY();
 
+                final int pointerIndex = MotionEventCompat.getActionIndex(event);
+                mActivePointerId=MotionEventCompat.getPointerId(event,pointerIndex);
+
+                final float x = MotionEventCompat.getX(event, pointerIndex);
+                final float y = MotionEventCompat.getY(event, pointerIndex);
+
+                mLastX = x;
+                mLastY= y;
+                // Save the ID of this pointer (for dragging)
+                mActivePointerId = MotionEventCompat.getPointerId(event, 0);
                 return false;
         }
         return false;

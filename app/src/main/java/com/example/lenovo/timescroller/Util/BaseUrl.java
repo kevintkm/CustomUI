@@ -15,6 +15,11 @@ public final class BaseUrl {
     public static final String TNGOU_PICLIST = "http://www.tngou.net/tnfs/api/list";
 
     /**
+     * 通过分类id取得最新图片列表
+     */
+    public static final String TNGOU_LASTESTPIC = "http://www.tngou.net/tnfs/api/news";
+
+    /**
      * 通过图片URL前缀
      */
     public static final String TNGOU_PICFOR = "http://tnfs.tngou.net/image";

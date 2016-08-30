@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.lenovo.timescroller.Adapter.TnGouPagerAdapter;
 import com.example.lenovo.timescroller.Model.TnGouClassify;
+import com.example.lenovo.timescroller.Model.TnGouPicListBean;
 import com.example.lenovo.timescroller.R;
 import com.example.lenovo.timescroller.Util.BaseUrl;
 import com.example.lenovo.timescroller.Util.HttpUtil;
@@ -79,7 +80,9 @@ public class CommonWidgetFragment extends BaseFragment {
     }
 
     private void handleNavigation(List<TnGouClassify.TngouBean> beanList) {
-
+        TnGouClassify.TngouBean bean = new TnGouClassify.TngouBean();
+        bean.setTitle(getString(R.string.lastest_picture));
+        beanList.add(0,bean);
         adapter.setBeanList(beanList);
         adapter.notifyDataSetChanged();
     }

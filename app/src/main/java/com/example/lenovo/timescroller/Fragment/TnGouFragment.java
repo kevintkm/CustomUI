@@ -25,21 +25,21 @@ import butterknife.InjectView;
 /**
  * Created by Kevin_Tian on 16/8/27.
  */
-public class TnGouFragment extends BaseFragment implements ExRecyclerView.OnRefreshListener{
+public class TnGouFragment extends BaseFragment implements ExRecyclerView.OnRefreshListener {
 
     public final static String EXTRA_ID = "id";
     private int id;
     @InjectView(R.id.tn_recyclerview)
     ExRecyclerView recyclerView;
-    TnGouAdapter adapter ;
+    TnGouAdapter adapter;
     List<TnGouPicListBean.TngouBean> lists;
 
     private int pag;
     private int rows = 10;
 
-    public static TnGouFragment getInstance(int id){
+    public static TnGouFragment getInstance(int id) {
         Bundle bundle = new Bundle();
-        bundle.putInt(EXTRA_ID,id);
+        bundle.putInt(EXTRA_ID, id);
         TnGouFragment fragment = new TnGouFragment();
         fragment.setArguments(bundle);
         return fragment;
@@ -82,17 +82,17 @@ public class TnGouFragment extends BaseFragment implements ExRecyclerView.OnRefr
 
     @Override
     public void initData() {
-lists = new ArrayList<>();
-id=getArguments().getInt(EXTRA_ID);
+        lists = new ArrayList<>();
+        id = getArguments().getInt(EXTRA_ID);
         onHeaderRefresh();
     }
 
-    private void getPicList(String id, String page , final String row) {
-        HashMap<String,String> map = new HashMap<>();
-        map.put(EXTRA_ID,id);
-        map.put("page",page);
-        map.put("rows",row);
-        HttpUtil.getInstance().postAsyncForm(BaseUrl.TNGOU_PICLIST, map, new HttpUtil.HttpCallBack() {
+    private void getPicList(String id, String page, final String row) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put(EXTRA_ID, id);
+        map.put("page", page);
+        map.put("rows", row);
+        HttpUtil.getInstance().postAsyncForm("0".equals(id)?BaseUrl.TNGOU_LASTESTPIC:BaseUrl.TNGOU_PICLIST, map, new HttpUtil.HttpCallBack() {
             @Override
             public void onLoading() {
 
@@ -100,10 +100,10 @@ id=getArguments().getInt(EXTRA_ID);
 
             @Override
             public void onSuccess(String result) {
-TnGouPicListBean bean = (TnGouPicListBean) Util.jsonToObject(result,TnGouPicListBean.class);
-                if (bean.getTngou().size()<rows){
+                TnGouPicListBean bean = (TnGouPicListBean) Util.jsonToObject(result, TnGouPicListBean.class);
+                if (bean.getTngou().size() < rows) {
                     recyclerView.onLoadNoMoreComplete();
-                }else {
+                } else {
                     recyclerView.onRefreshComplete();
                 }
                 if (pag == 1) {
@@ -116,7 +116,7 @@ TnGouPicListBean bean = (TnGouPicListBean) Util.jsonToObject(result,TnGouPicList
 
             @Override
             public void onError(String error) {
-recyclerView.onRefreshComplete();
+                recyclerView.onRefreshComplete();
             }
         });
     }
@@ -125,12 +125,12 @@ recyclerView.onRefreshComplete();
     public void onHeaderRefresh() {
         recyclerView.setOnTopRefresh();
         pag = 1;
-        getPicList(String.valueOf(id),String.valueOf(pag),String.valueOf(rows));
+        getPicList(String.valueOf(id), String.valueOf(pag), String.valueOf(rows));
     }
 
     @Override
     public void onFooterRefresh() {
         pag++;
-        getPicList(String.valueOf(id),String.valueOf(pag),String.valueOf(rows));
+        getPicList(String.valueOf(id == 0?pag:id), String.valueOf(pag), String.valueOf(rows));
     }
 }
