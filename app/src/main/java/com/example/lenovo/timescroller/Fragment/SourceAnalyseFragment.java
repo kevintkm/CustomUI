@@ -6,17 +6,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.lenovo.timescroller.R;
 import com.example.lenovo.timescroller.Util.Util;
 import com.example.lenovo.timescroller.View.DragViewGroup;
-import com.example.lenovo.timescroller.View.SimpleScroller;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by kevin.tian on 2016/8/9.

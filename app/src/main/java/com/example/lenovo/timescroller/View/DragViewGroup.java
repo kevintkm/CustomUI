@@ -34,7 +34,8 @@ public class DragViewGroup extends LinearLayout {
     int currentIndex;
     int childCount;
     private Scroller mScroller;
-    private ImageView currentView;
+    private View currentView;
+    private View targetView;
 
     // The ‘active pointer’ is the one currently moving our object.
 //    private int INVALID_POINTER_ID = -1000;
@@ -87,11 +88,15 @@ public class DragViewGroup extends LinearLayout {
                 float currentY = y1;
                 float dx = currentX - mLastX;
                 float dy = currentY - mLastY;
-                currentView.setTranslationX(dx);
+                targetView = getTouchTarget(this,(int)x1,(int)y1);
+                System.out.println("ACTION_MOVE========> "+currentIndex+"   "+targetView+"  "+x1+"  "+y1);
 //                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(currentView, "translationX", dx);
 //                objectAnimator.setDuration(0);
 //                objectAnimator.start();
-                onDrag(dx);
+                if(currentView!=null){
+                    onDrag(targetView);
+                    currentView.setTranslationX(dx);
+                }
                 // scrollTo((int) -dx, 0);
                 break;
             case MotionEvent.ACTION_DOWN:
@@ -105,7 +110,8 @@ public class DragViewGroup extends LinearLayout {
                 float y = event.getRawY();
                 Log.d("-----", x + "");
                 Log.d("-----", y + "");
-                currentView = (ImageView) getTouchTarget(this, (int) x, (int) y);
+                currentView = getTouchTarget(this, (int) x, (int) y);
+                System.out.println("currentView========>  "+currentView);
                 mLastX = x;
                 mLastY = y;
                 // Save the ID of this pointer (for dragging)
@@ -116,8 +122,10 @@ public class DragViewGroup extends LinearLayout {
                     View child = getChildAt(i);
                     child.setTranslationX(0);
                 }
-                removeView(currentView);
-                addView(currentView,currentIndex+targetInedex);
+                if(currentView!=null){
+                    removeView(currentView);
+                    addView(currentView,targetInedex);
+                }
                 break;
         }
         return super.dispatchTouchEvent(event);
@@ -125,18 +133,36 @@ public class DragViewGroup extends LinearLayout {
 
     private HashMap<View,ObjectAnimator> viewObjectAnimatorHashMap = new HashMap<>();
 
-    private void onDrag(float dx) {
+    private void onDrag(View targetView) {
+        if (targetView==currentView || currentView==null || targetView==null)
+            return;
         currentIndex = indexOfChild(currentView);
-        int offset = (int) dx / (currentView.getMeasuredWidth() / 2 + Util.dpToPx(getResources(), 3));
+        targetInedex = indexOfChild(targetView);
+        System.out.println("onDrag========> "+currentIndex+"   "+targetInedex);
         float ss = -(Util.dpToPx(getResources(), 3) + currentView.getWidth());
-        if (offset > 0) {
+        if (currentIndex<targetInedex){
+            for (int i = currentIndex+1;i<=targetInedex;i++){
+                View childView =  getChildAt(i);
+                if(childView!=null){
+                    childView.setTranslationX(ss);
+                }
+            }
+        }else {
+            for (int i = targetInedex;i<currentIndex;i++){
+                View childView =  getChildAt(i);
+                if(childView!=null){
+                    childView.setTranslationX(-ss);
+                }
+            }
+        }
+       /* if (offset > 0) {
             targetInedex = (offset + 1) / 2;
             for (int i = 1; i < targetInedex + 1; i++) {
 
                View child = getChildAt(currentIndex + i);
 
                 child.setTranslationX(ss);
-                 /*if(child == currentView){
+                 *//*if(child == currentView){
                     continue;
                 }
                 float ss = -(Util.dpToPx(getResources(), 3) + currentView.getWidth());
@@ -150,7 +176,7 @@ public class DragViewGroup extends LinearLayout {
                     viewObjectAnimatorHashMap.put(child, objectAnimator);
                     objectAnimator.setDuration(100);
                     objectAnimator.start();
-                }*/
+                }*//*
             }
         }else if (offset<0){
             targetInedex = (offset - 1) / 2;
@@ -159,7 +185,7 @@ public class DragViewGroup extends LinearLayout {
 
                 child.setTranslationX(-ss);
             }
-        }
+        }*/
     }
 
     private View getTouchTarget(View view, int x, int y) {
@@ -167,6 +193,10 @@ public class DragViewGroup extends LinearLayout {
         ArrayList<View> TouchableViews = view.getTouchables();
         childCount = TouchableViews.size();
         for (View child : TouchableViews) {
+            if(currentView!=null && child == currentView){
+                continue;
+            }
+            System.out.println("child getTouchTarget====>  "+child);
             if (isTouchPointInView(child, x, y)) {
                 target = child;
                 break;
@@ -179,6 +209,7 @@ public class DragViewGroup extends LinearLayout {
     private boolean isTouchPointInView(View view, int x, int y) {
         int[] location = new int[2];
         view.getLocationOnScreen(location);
+        System.out.println("isTouchPointInView  view "+view+"       "+x+"  "+y);
         int left = location[0];
         int top = location[1];
         int right = left + view.getMeasuredWidth();
