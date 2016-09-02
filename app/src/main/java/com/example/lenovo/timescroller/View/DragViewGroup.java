@@ -1,19 +1,30 @@
 package com.example.lenovo.timescroller.View;
 
 import android.animation.Animator;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.Transformation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
 
+import com.example.lenovo.timescroller.Activity.MainActivity;
 import com.example.lenovo.timescroller.R;
+import com.example.lenovo.timescroller.Util.FloatRoute;
 import com.example.lenovo.timescroller.Util.Util;
+import com.squareup.haha.perflib.Main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,13 +41,19 @@ public class DragViewGroup extends LinearLayout {
 
     private float mLastX;
     private float mLastY;
-    int targetInedex;
-    int currentIndex;
     int childCount;
     private Scroller mScroller;
+    Rect mRect = new Rect();
+    FloatRoute mRoute = new FloatRoute();
+    BitmapDrawable drawable;
     private View currentView;
-    private View targetView;
-
+    AnimatorSet wobbleSet;
+    boolean isAnimating;
+    MoveChildRunnable moveChildRunnable= new MoveChildRunnable();
+    /**
+     * 是否拦截Touch
+     */
+    private boolean isInterceptTouch = false;
     // The ‘active pointer’ is the one currently moving our object.
 //    private int INVALID_POINTER_ID = -1000;
 //    private int mActivePointerId = INVALID_POINTER_ID;
@@ -53,7 +70,6 @@ public class DragViewGroup extends LinearLayout {
     public DragViewGroup(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mScroller = new Scroller(context);
-        init();
     }
 
     @Override
@@ -68,160 +84,248 @@ public class DragViewGroup extends LinearLayout {
     /**
      * 通过遍历RootView树得到当前点击范围内的子view
      *
-     * @param event
+     * @param
      * @return
      */
-
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            mRoute.setDown(ev.getX(), ev.getY());
+        }
+        return isInterceptTouch;
+    }
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
+        if (drawable == null || getChildCount() < 1)
+            return super.dispatchTouchEvent(event);
         int action = event.getAction() & MotionEvent.ACTION_MASK;
         //为了使手指按在Button等可点击的控件上任可以滑动，需要拦截滑动实践
         //并且为了使坐标准确，在此处记录按下的点
         switch (action) {
             case MotionEvent.ACTION_MOVE:
-//                final int pointer =
-//                        MotionEventCompat.findPointerIndex(event, mActivePointerId);
-
-                final float x1 = event.getRawX();
-                final float y1 = event.getRawY();
-                float currentX = x1;
-                float currentY = y1;
-                float dx = currentX - mLastX;
-                float dy = currentY - mLastY;
-                targetView = getTouchTarget(this,(int)x1,(int)y1);
-                System.out.println("ACTION_MOVE========> "+currentIndex+"   "+targetView+"  "+x1+"  "+y1);
-//                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(currentView, "translationX", dx);
-//                objectAnimator.setDuration(0);
-//                objectAnimator.start();
-                if(currentView!=null){
-                    onDrag(targetView);
-                    currentView.setTranslationX(dx);
-                }
-                // scrollTo((int) -dx, 0);
+                mRoute.setCurrent(event.getRawX(), event.getRawY());
+                actionMove();
                 break;
             case MotionEvent.ACTION_DOWN:
-
-            /*    final int pointerIndex = MotionEventCompat.getActionIndex(event);
-                mActivePointerId=MotionEventCompat.getPointerId(event,pointerIndex);*/
-
-//                final float x = MotionEventCompat.getX(event, pointerIndex);
-//                final float y = MotionEventCompat.getY(event, pointerIndex);
-                float x = event.getRawX();
-                float y = event.getRawY();
-                Log.d("-----", x + "");
-                Log.d("-----", y + "");
-                currentView = getTouchTarget(this, (int) x, (int) y);
-                System.out.println("currentView========>  "+currentView);
-                mLastX = x;
-                mLastY = y;
-                // Save the ID of this pointer (for dragging)
-                //  mActivePointerId = MotionEventCompat.getPointerId(event, 0);
+                mRoute.setDown(event.getRawX(), event.getRawY());
                 break;
             case MotionEvent.ACTION_UP:
-                for (int i = 0; i < getChildCount(); i++) {
-                    View child = getChildAt(i);
-                    child.setTranslationX(0);
-                }
-                if(currentView!=null){
-                    removeView(currentView);
-                    addView(currentView,targetInedex);
-                }
+            case MotionEvent.ACTION_CANCEL:
+                isInterceptTouch = false;
+                drawable = null;
+                currentView.setVisibility(View.VISIBLE);
+                mRoute.reset();
+                stopWobbleAnim();
                 break;
         }
         return super.dispatchTouchEvent(event);
     }
 
-    private HashMap<View,ObjectAnimator> viewObjectAnimatorHashMap = new HashMap<>();
-
-    private void onDrag(View targetView) {
-        if (targetView==currentView || currentView==null || targetView==null)
-            return;
-        currentIndex = indexOfChild(currentView);
-        targetInedex = indexOfChild(targetView);
-        System.out.println("onDrag========> "+currentIndex+"   "+targetInedex);
-        float ss = -(Util.dpToPx(getResources(), 3) + currentView.getWidth());
-        if (currentIndex<targetInedex){
-            for (int i = currentIndex+1;i<=targetInedex;i++){
-                View childView =  getChildAt(i);
-                if(childView!=null){
-                    childView.setTranslationX(ss);
-                }
-            }
-        }else {
-            for (int i = targetInedex;i<currentIndex;i++){
-                View childView =  getChildAt(i);
-                if(childView!=null){
-                    childView.setTranslationX(-ss);
-                }
-            }
+    private void actionMove() {
+        float dx = mRoute.getDeltaX();
+        float dy = mRoute.getDeltaY();
+        mRect.left += dx;
+        mRect.right = mRect.left + currentView.getWidth();
+        mRect.top += dy;
+        mRect.bottom = mRect.top + currentView.getTop();
+        if (mRect.left<0){
+            mRect.left = 0;
+            mRect.right = currentView.getWidth();
         }
-       /* if (offset > 0) {
-            targetInedex = (offset + 1) / 2;
-            for (int i = 1; i < targetInedex + 1; i++) {
 
-               View child = getChildAt(currentIndex + i);
+        if (mRect.right>getMeasuredWidth()){
+            mRect.right = getMeasuredWidth();
+            mRect.left = getMeasuredWidth() - currentView.getMeasuredWidth();
+        }
 
-                child.setTranslationX(ss);
-                 *//*if(child == currentView){
-                    continue;
-                }
-                float ss = -(Util.dpToPx(getResources(), 3) + currentView.getWidth());
-                if(child.getTranslationX() == ss){
-                    continue;
-                }
-//                child.setTranslationX(ss);
-                ObjectAnimator objectAnimator = viewObjectAnimatorHashMap.get(child);
-                if(objectAnimator==null || !objectAnimator.isRunning()){
-                    objectAnimator = ObjectAnimator.ofFloat(child, "translationX", ss);
-                    viewObjectAnimatorHashMap.put(child, objectAnimator);
-                    objectAnimator.setDuration(100);
-                    objectAnimator.start();
-                }*//*
-            }
-        }else if (offset<0){
-            targetInedex = (offset - 1) / 2;
-            for (int i = -1; i > targetInedex -1 ; i--) {
-                View child = getChildAt(currentIndex + i);
-
-                child.setTranslationX(-ss);
-            }
-        }*/
-    }
-
-    private View getTouchTarget(View view, int x, int y) {
-        View target = null;
-        ArrayList<View> TouchableViews = view.getTouchables();
-        childCount = TouchableViews.size();
-        for (View child : TouchableViews) {
-            if(currentView!=null && child == currentView){
+        if(isAnimating)
+            return ;
+        for (int i = 0; i <childCount; i++) {
+            final View childView = getChildAt(i);
+            if(childView == currentView)
                 continue;
-            }
-            System.out.println("child getTouchTarget====>  "+child);
-            if (isTouchPointInView(child, x, y)) {
-                target = child;
+            int centerX = mRect.left+currentView.getMeasuredWidth()/2;
+            int centerY = mRect.top+currentView.getMeasuredWidth()/2;
+            int diffOffset = currentView.getMeasuredWidth()/8;
+            if (centerX>childView.getLeft()+ diffOffset && centerX<childView.getRight()- diffOffset && centerY>childView.getTop()+diffOffset && centerY<childView.getBottom()-diffOffset) {
+                isAnimating = true;
+
+                removeCallbacks(moveChildRunnable);
+                moveChildRunnable.setTargetIndex(i);
+                postDelayed(moveChildRunnable, 50);
+//            	startMoveChildAnim(i);
                 break;
             }
         }
 
-        return target;
     }
+    /**
+     * 延迟执行动画Runnable
+     *Created by linjinfa 331710168@qq.com
+     */
+    class MoveChildRunnable implements Runnable{
 
-    private boolean isTouchPointInView(View view, int x, int y) {
-        int[] location = new int[2];
-        view.getLocationOnScreen(location);
-        System.out.println("isTouchPointInView  view "+view+"       "+x+"  "+y);
-        int left = location[0];
-        int top = location[1];
-        int right = left + view.getMeasuredWidth();
-        int bottom = top + view.getMeasuredHeight();
-        if (view.isClickable() && y >= top && y <= bottom
-                && x >= left && x <= right) {
-            return true;
+        private int targetIndex;
+
+        @Override
+        public void run() {
+            startMoveChildAnim(targetIndex);
         }
-        return false;
+
+        public void setTargetIndex(int targetIndex) {
+            this.targetIndex = targetIndex;
+        }
     }
 
-    private void init() {
+    private void startMoveChildAnim(final int targetIndex) {
+        int position = indexOfChild(currentView);
+        if(position==-1)
+            return ;
+        isAnimating = true;
+        AnimationSet animationSet = new AnimationSet(true);
+        animationSet.setDuration(200);
+        if(position<targetIndex){
+            for(int i=position+1;i<=targetIndex;i++){
+                View preChildView = getChildAt(i-1);
+                View nextChildView = getChildAt(i);
+                animationSet.addAnimation(new MoveAnim(nextChildView, nextChildView.getLeft(), preChildView.getLeft(), nextChildView.getRight(), preChildView.getRight(), nextChildView.getTop(), preChildView.getTop(), nextChildView.getBottom(), preChildView.getBottom()));
+            }
+        }else{
+            for(int i=targetIndex;i<position;i++){
+                View preChildView = getChildAt(i);
+                View nextChildView = getChildAt(i+1);
+                animationSet.addAnimation(new MoveAnim(preChildView, preChildView.getLeft(), nextChildView.getLeft(), preChildView.getRight(), nextChildView.getRight(), preChildView.getTop(), nextChildView.getTop(), preChildView.getBottom(), nextChildView.getBottom()));
+            }
+        }
+        animationSet.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                isAnimating = true;
+            }
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                removeView(currentView);
+                addView(currentView, targetIndex);
+                isAnimating = false;
+            }
+        });
+        startAnimation(animationSet);
     }
 
+
+    /**
+     * 移动动画
+     */
+    class MoveAnim extends Animation {
+
+        private View targetView;
+        private int fromLeft;
+        private int toLeft;
+        private int fromRight;
+        private int toRight;
+        private int fromTop;
+        private int toTop;
+        private int fromBottom;
+        private int toBottom;
+
+        public MoveAnim(View targetView, int fromLeft, int toLeft,
+                        int fromRight, int toRight, int fromTop, int toTop,
+                        int fromBottom, int toBottom) {
+            super();
+            this.targetView = targetView;
+            this.fromLeft = fromLeft;
+            this.toLeft = toLeft;
+            this.fromRight = fromRight;
+            this.toRight = toRight;
+            this.fromTop = fromTop;
+            this.toTop = toTop;
+            this.fromBottom = fromBottom;
+            this.toBottom = toBottom;
+        }
+
+
+    @Override
+    protected void applyTransformation(float interpolatedTime,
+                                       Transformation t) {
+        int left = (int) (fromLeft - (fromLeft - toLeft) * interpolatedTime);
+        int right = (int) (fromRight - (fromRight - toRight) * interpolatedTime);
+        int top = (int) (fromTop - (fromTop - toTop) * interpolatedTime);
+        int bottom = (int) (fromBottom - (fromBottom - toBottom) * interpolatedTime);
+        targetView.setLeft(left);
+        targetView.setRight(right);
+        targetView.setTop(top);
+        targetView.setBottom(bottom);
+    }
+}
+    public void init() {
+        for (int i = 0; i < 5; i++) {
+            ImageView image = new ImageView(getContext());
+            image.setBackgroundResource(R.drawable.kevin);
+            int screenWidth = Util.getScreenWidth((MainActivity) getContext());
+            int width = (screenWidth - 12) / 5;
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, Util.dpToPx(getResources(), 78));
+            params.rightMargin = Util.dpToPx(getResources(), 3);
+            image.setOnLongClickListener(new OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    isInterceptTouch = true;
+                    currentView = v;
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                    createBitmap();
+                    startWobbleAnim();
+                    return true;
+                }
+            });
+            addView(image, params);
+        }
+        childCount = getChildCount();
+    }
+
+    private void startWobbleAnim() {
+        stopWobbleAnim();
+        wobbleSet = new AnimatorSet();
+        ObjectAnimator[] obectAnimators = new ObjectAnimator[childCount];
+        for (int i = 0; i < childCount; i++) {
+            View child = getChildAt(i);
+            ObjectAnimator animator = ObjectAnimator.ofFloat(child, "rotation", 3, -3);
+            animator.setRepeatMode(ValueAnimator.REVERSE);
+            animator.setRepeatCount(ValueAnimator.INFINITE);
+            obectAnimators[i] = animator;
+        }
+        wobbleSet.playTogether(obectAnimators);
+        wobbleSet.setDuration(180);
+        wobbleSet.start();
+    }
+
+    private void stopWobbleAnim() {
+        if (wobbleSet != null) {
+            wobbleSet.end();
+            wobbleSet = null;
+            for (int i = 0; i < childCount; i++) {
+                getChildAt(i).setRotation(0);
+            }
+        }
+
+    }
+
+    private void createBitmap() {
+        mRect = new Rect(currentView.getLeft(), currentView.getTop(), currentView.getRight(), currentView.getBottom());
+        Bitmap bitmap = Bitmap.createBitmap(currentView.getWidth(), currentView.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        currentView.draw(canvas);
+        drawable = new BitmapDrawable(getResources(), bitmap);
+        currentView.setVisibility(INVISIBLE);
+        invalidate();
+    }
+
+    @Override
+    protected void dispatchDraw(Canvas canvas) {
+        super.dispatchDraw(canvas);
+        if (drawable != null) {
+            drawable.setBounds(mRect);
+            drawable.draw(canvas);
+        }
+    }
 }

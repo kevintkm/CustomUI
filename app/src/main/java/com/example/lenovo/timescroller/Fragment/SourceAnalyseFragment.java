@@ -40,16 +40,7 @@ public class SourceAnalyseFragment extends Fragment{
 
         View view = inflater.inflate(R.layout.fragment_draglinear_layout,container,false);
         DragViewGroup group = (DragViewGroup) view;
-        for (int i = 0; i < 5; i++) {
-            ImageView image = new ImageView(getContext());
-            image.setBackgroundResource(R.drawable.kevin);
-            int screenWidth = Util.getScreenWidth(getActivity());
-            int width = (screenWidth-12)/5;
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,Util.dpToPx(getResources(),78));
-            params.rightMargin = Util.dpToPx(getResources(),3);
-            image.setOnClickListener(null);
-            group.addView(image,params);
-        }
+        group.init();
         return view;
 
     }
