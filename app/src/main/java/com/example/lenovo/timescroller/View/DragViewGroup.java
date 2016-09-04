@@ -42,7 +42,6 @@ public class DragViewGroup extends LinearLayout {
     private float mLastX;
     private float mLastY;
     int childCount;
-    private Scroller mScroller;
     Rect mRect = new Rect();
     FloatRoute mRoute = new FloatRoute();
     BitmapDrawable drawable;
@@ -69,17 +68,8 @@ public class DragViewGroup extends LinearLayout {
 
     public DragViewGroup(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mScroller = new Scroller(context);
     }
 
-    @Override
-    public void computeScroll() {
-        super.computeScroll();
-        if (mScroller.computeScrollOffset()) {
-            scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
-            invalidate();
-        }
-    }
 
     /**
      * 通过遍历RootView树得到当前点击范围内的子view
@@ -94,6 +84,7 @@ public class DragViewGroup extends LinearLayout {
         }
         return isInterceptTouch;
     }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         if (drawable == null || getChildCount() < 1)
@@ -106,9 +97,9 @@ public class DragViewGroup extends LinearLayout {
                 mRoute.setCurrent(event.getRawX(), event.getRawY());
                 actionMove();
                 break;
-            case MotionEvent.ACTION_DOWN:
-                mRoute.setDown(event.getRawX(), event.getRawY());
-                break;
+//            case MotionEvent.ACTION_DOWN:
+//                mRoute.setDown(event.getRawX(), event.getRawY());
+//                break;
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 isInterceptTouch = false;
@@ -123,11 +114,11 @@ public class DragViewGroup extends LinearLayout {
 
     private void actionMove() {
         float dx = mRoute.getDeltaX();
-        float dy = mRoute.getDeltaY();
+//        float dy = mRoute.getDeltaY();
         mRect.left += dx;
         mRect.right = mRect.left + currentView.getWidth();
-        mRect.top += dy;
-        mRect.bottom = mRect.top + currentView.getTop();
+//        mRect.top += dy;
+//        mRect.bottom = mRect.top + currentView.getHeight();
         if (mRect.left<0){
             mRect.left = 0;
             mRect.right = currentView.getWidth();
@@ -135,8 +126,10 @@ public class DragViewGroup extends LinearLayout {
 
         if (mRect.right>getMeasuredWidth()){
             mRect.right = getMeasuredWidth();
-            mRect.left = getMeasuredWidth() - currentView.getMeasuredWidth();
+            mRect.left = getMeasuredWidth() - currentView.getWidth();
         }
+
+        invalidate();
 
         if(isAnimating)
             return ;
@@ -145,9 +138,9 @@ public class DragViewGroup extends LinearLayout {
             if(childView == currentView)
                 continue;
             int centerX = mRect.left+currentView.getMeasuredWidth()/2;
-            int centerY = mRect.top+currentView.getMeasuredWidth()/2;
-            int diffOffset = currentView.getMeasuredWidth()/8;
-            if (centerX>childView.getLeft()+ diffOffset && centerX<childView.getRight()- diffOffset && centerY>childView.getTop()+diffOffset && centerY<childView.getBottom()-diffOffset) {
+            //int centerY = mRect.top+currentView.getMeasuredWidth()/2;
+            //int diffOffset = currentView.getMeasuredWidth()/8;
+            if (centerX>childView.getLeft() && centerX<childView.getRight()) {
                 isAnimating = true;
 
                 removeCallbacks(moveChildRunnable);
