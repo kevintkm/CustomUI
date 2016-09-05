@@ -10,11 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
-import com.example.lenovo.timescroller.View.ExRecyclerView;
 
 /**
  * Created by kevin.tian on 2016/7/13.
- * StaggeredGridLayoutManager.VERTICAL方向的垂直分割线，row为1，根据ExRecyclerView不支持横向
+ * StaggeredGridLayoutManager.VERTICAL方向的垂直分割线，row为1，根据RecyclerView不支持横向
  */
 public class DividerLinearItemDecoration extends RecyclerView.ItemDecoration {
 
@@ -94,17 +93,11 @@ public class DividerLinearItemDecoration extends RecyclerView.ItemDecoration {
 
     private void drawLines(Canvas c, RecyclerView parent) {
         int visibleCount = parent.getChildCount();
-        int count = ((ExRecyclerView)parent).getAdapter().getItemCount();
+        int count = ((RecyclerView)parent).getAdapter().getItemCount();
         //最后一个item不绘制分割线
         for (int i = 0; i < visibleCount; i++) {
             View child = parent.getChildAt(i);
             int position = parent.getChildAdapterPosition(child);
-            if (((ExRecyclerView) parent).hasHeaderView() && (position == 0 || position == count)) {
-                continue;
-            }
-            if (!((ExRecyclerView) parent).hasHeaderView() && ( position == count-1)) {
-                continue;
-            }
                 RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
                 int left = 0, right = 0, top = 0, bottom = 0;
                 if (mOrientation == StaggeredGridLayoutManager.HORIZONTAL) {

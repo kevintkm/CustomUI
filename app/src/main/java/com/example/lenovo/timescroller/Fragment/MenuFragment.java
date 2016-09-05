@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class MenuFragment extends Fragment {
 
-    ExRecyclerView mRecyclerView;
+    RecyclerView mRecyclerView;
     List<MenuBean> mDatas;
     View menuView;
     MenuAdapter menuAdapter;
@@ -46,13 +46,11 @@ public class MenuFragment extends Fragment {
     private void init() {
         Bundle bundle = getArguments();
         mDatas = (List<MenuBean>) bundle.getSerializable("data");
-        mRecyclerView = (ExRecyclerView) menuView.findViewById(R.id.menu_recyclerview);
+        mRecyclerView = (RecyclerView) menuView.findViewById(R.id.menu_recyclerview);
         menuAdapter = new MenuAdapter(getActivity());
         mRecyclerView.addItemDecoration(new DividerLinearItemDecoration(getActivity(),StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(menuAdapter);
-        mRecyclerView.setFooterView(R.layout.uicomponent_footer_view_indiana);
-        mRecyclerView.setHeaderView(R.layout.uicomponent_header_view_indiana);
         menuAdapter.setLists(mDatas);
         menuAdapter.setListener((MainActivity)getActivity());
         menuAdapter.notifyDataSetChanged();

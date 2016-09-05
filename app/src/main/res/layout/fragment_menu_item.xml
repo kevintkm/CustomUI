@@ -1,14 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="@android:color/transparent"
-              android:foreground="?attr/selectableItemBackground">
+              android:gravity="center_vertical"
+              android:orientation="horizontal"
+              android:padding="@dimen/dp10"
+              >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="@dimen/dp10">
 
         <ImageView
             android:id="@+id/menu_item_image"
@@ -27,6 +24,4 @@
             android:layout_centerVertical="true"
             android:textColor="@color/black"
             android:textSize="@dimen/sp15"/>
-    </RelativeLayout>
-
-</LinearLayout>
+    </LinearLayout>
