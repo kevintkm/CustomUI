@@ -31,8 +31,8 @@ public class GankViewHolder extends BaseRecyclerViewHolder{
     public GankViewHolder(View itemView , Context context) {
         super(itemView,context);
         this.mContext = context;
-        imageView = (RatioImageView) itemView.findViewById(R.id.project_item_im);
-        textView = (TextView) itemView.findViewById(R.id.project_item_tv);
+        imageView = (RatioImageView) itemView.findViewById(R.id.iv_meizhi);
+        textView = (TextView) itemView.findViewById(R.id.tv_title);
     }
 
     public void setData(Object object) {

@@ -10,6 +10,7 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.example.lenovo.timescroller.R;
+import com.example.lenovo.timescroller.service.KeepAlarmLiveReciver;
 
 
 /**
@@ -39,8 +40,6 @@ public class WebViewActivity extends BaseActivity {
         mWebView.setWebChromeClient(new MyWebChromeClient());
         mProgressBar.setMax(100);
         mWebView.loadUrl(mUrl);
-
-
         setToolBarTitle("加载中……");
         //监听toolbar左上角后退按钮
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {

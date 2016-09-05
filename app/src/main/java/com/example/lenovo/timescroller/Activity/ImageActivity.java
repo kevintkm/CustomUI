@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.lenovo.timescroller.R;
+import com.example.lenovo.timescroller.service.AlarmReciver;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -50,6 +51,9 @@ public class ImageActivity extends BaseActivity {
         extra = getIntent().getStringExtra(BaseActivity.OBJECT_EXTRA);
         title = getIntent().getStringExtra(TITLE);
         ViewCompat.setTransitionName(image, PICTURE);
+        Intent intent = new Intent("com.example.lenovo.timescroller");
+        intent.setClass(this, AlarmReciver.class);
+        sendBroadcast(intent);
         //ImageLoaderUtil.loadImage(this,extra,image);
         /**
          * new SimpleTarget<Bitmap>保持context引用问题
