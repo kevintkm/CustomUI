@@ -10,7 +10,6 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.example.lenovo.timescroller.R;
-import com.example.lenovo.timescroller.service.KeepAlarmLiveReciver;
 
 
 /**

@@ -10,8 +10,8 @@ import android.content.Intent;
 public class KeepAlarmLiveReciver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-      //  if (intent!=null && intent.getAction().equals(Intent.ACTION_USER_PRESENT)){
+        if (intent!=null && intent.getAction().equals(Intent.ACTION_USER_PRESENT)){
             AlarmManagers.register(context);
-       // }
+        }
     }
 }

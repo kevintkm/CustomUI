@@ -51,9 +51,9 @@ public class ImageActivity extends BaseActivity {
         extra = getIntent().getStringExtra(BaseActivity.OBJECT_EXTRA);
         title = getIntent().getStringExtra(TITLE);
         ViewCompat.setTransitionName(image, PICTURE);
-        Intent intent = new Intent("com.example.lenovo.timescroller");
-        intent.setClass(this, AlarmReciver.class);
-        sendBroadcast(intent);
+//        Intent intent = new Intent("com.example.lenovo.timescroller");
+//        intent.setClass(this, AlarmReciver.class);
+//        sendBroadcast(intent);
         //ImageLoaderUtil.loadImage(this,extra,image);
         /**
          * new SimpleTarget<Bitmap>保持context引用问题
