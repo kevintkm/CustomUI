@@ -1,6 +1,5 @@
 package com.example.lenovo.timescroller.View;
 
-import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -10,7 +9,6 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -18,16 +16,11 @@ import android.view.animation.AnimationSet;
 import android.view.animation.Transformation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Scroller;
 
 import com.example.lenovo.timescroller.Activity.MainActivity;
 import com.example.lenovo.timescroller.R;
 import com.example.lenovo.timescroller.Util.FloatRoute;
 import com.example.lenovo.timescroller.Util.Util;
-import com.squareup.haha.perflib.Main;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * 自定义拖拽View
@@ -39,8 +32,6 @@ public class DragViewGroup extends LinearLayout {
      * 多点触控导致第二个手指触摸是，View会偏移位置(在ACTION_POINTER_UP中重新选择操作点)
      */
 
-    private float mLastX;
-    private float mLastY;
     int childCount;
     Rect mRect = new Rect();
     FloatRoute mRoute = new FloatRoute();

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <com.example.lenovo.timescroller.View.AliArc
+        android:id="@+id/iView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dip"
+        android:background="@android:color/white"
+        />
+    <TextView android:id="@+id/txtView"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="40sp"
+              android:layout_gravity="bottom|center_horizontal"
+              android:layout_marginBottom="300dip"
+              android:textColor="#ff00d4af"
+              android:text="350"
+        />
+</FrameLayout>

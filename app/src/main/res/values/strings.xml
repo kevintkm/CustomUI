@@ -7,4 +7,6 @@
     <string name="action_save">保存</string>
     <string name="save_success">保存成功</string>
     <string name="lastest_picture">最新图片</string>
+    <string name="design_ali">阿里表盘</string>
+    <string name="design_drag">简单拖拽</string>
 </resources>

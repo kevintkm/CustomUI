@@ -4,13 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.example.lenovo.timescroller.Activity.Gank1Activity;
 import com.example.lenovo.timescroller.Activity.GankActivity;
 import com.example.lenovo.timescroller.Activity.ImageActivity;
 import com.example.lenovo.timescroller.Activity.MainActivity;

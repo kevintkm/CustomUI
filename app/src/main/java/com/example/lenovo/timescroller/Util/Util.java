@@ -122,6 +122,11 @@ public class Util {
         return false;
     }
 
+    public static String formatSum(float sum){
+        BigDecimal bigDecimal = new BigDecimal(sum);
+      return   bigDecimal.setScale(0,BigDecimal.ROUND_HALF_UP).toString();
+    }
+
     /**
      * 格式化数据，1.00=>1   1.10=>1.1   1.001=>1
      *

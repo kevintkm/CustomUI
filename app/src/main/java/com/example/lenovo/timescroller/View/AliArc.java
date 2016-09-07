@@ -49,7 +49,7 @@ public class AliArc extends FrameLayout {
     private float rotateAngle = 0f;
 
     private boolean isSetReferValue = false;
-
+    RotateListener rotateListener;
 
     public AliArc(Context context) {
         this(context, null);
@@ -86,6 +86,51 @@ public class AliArc extends FrameLayout {
     @Override
     protected void onDraw(Canvas canvas) {
         float r = CENTERX - mPaint.getStrokeWidth() * 0.5f;
+        drawBackGround(canvas, r);
+        drawBitmap(canvas, r);
+        float value = 350;
+        if (null != rotateListener) {
+            if (currentRotateAngle <= 80) {
+                value = 350 + (currentRotateAngle / 80) * 400;
+            } else if (currentRotateAngle <= 200) {
+                value = 550 + ((currentRotateAngle - 80) / 120) * 150;
+            } else {
+                value = 700 + ((currentRotateAngle - 200) / 40) * 250;
+            }
+            rotateListener.rotate(currentRotateAngle, value);
+        }
+        currentRotateAngle += rotateAngle;
+        if (currentRotateAngle <totalRotateAngle) {
+            postInvalidate();
+        }
+    }
+
+    private void drawBitmap(Canvas canvas, float r) {
+        Paint paintMiddleArc = new Paint(Paint.ANTI_ALIAS_FLAG);
+        Paint paintBitmap = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+        paintMiddleArc.setColor(0xff00d4af);
+        paintMiddleArc.setStrokeWidth(6);
+        paintMiddleArc.setStyle(Paint.Style.STROKE);
+
+        bitmapLocation = BitmapFactory.decodeResource(getResources(), R.drawable.location1_03);
+        bitmapWidth = bitmapLocation.getWidth();
+        bitmapHeight = bitmapLocation.getHeight();
+
+        if (isSetReferValue) {
+            float r1 = r * 3 / 4;
+            canvas.save();
+            canvas.translate(CENTERX, CENTERX);
+            canvas.drawArc(new RectF(-r1, -r1, r1, r1), -210, currentRotateAngle, false, paintMiddleArc);
+            canvas.rotate(-30 + currentRotateAngle);
+            Matrix matrix = new Matrix();
+            matrix.preTranslate(-r1 - bitmapWidth * 3 / 8, -bitmapHeight / 2);
+            canvas.drawBitmap(bitmapLocation, matrix, paintBitmap);
+            canvas.restore();
+        }
+    }
+
+    private void drawBackGround(Canvas canvas, float r) {
         canvas.save();
         canvas.translate(CENTERX, CENTERX);
         canvas.rotate(150);
@@ -97,6 +142,7 @@ public class AliArc extends FrameLayout {
         innerPaint.setStyle(Paint.Style.STROKE);
         innerPaint.setStrokeWidth(4);
         innerPaint.setColor(Color.GRAY);
+        //DashPathEffect绘制虚线
         PathEffect effect = new DashPathEffect(new float[]{5, 5, 5}, 0);
         Paint vitualPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         vitualPaint.setStyle(Paint.Style.STROKE);
@@ -150,34 +196,11 @@ public class AliArc extends FrameLayout {
             canvas.drawText(text[i], CENTERX - 20, CENTERX * 3 / 16, textPaint);
             canvas.restore();
         }
-
-        Paint paintMiddleArc = new Paint(Paint.ANTI_ALIAS_FLAG);
-        Paint paintBitmap = new Paint(Paint.ANTI_ALIAS_FLAG);
-
-        paintMiddleArc.setColor(0xff00d4af);
-        paintMiddleArc.setStrokeWidth(6);
-        paintMiddleArc.setStyle(Paint.Style.STROKE);
-
-        bitmapLocation = BitmapFactory.decodeResource(getResources(), R.drawable.location1_03);
-        bitmapWidth = bitmapLocation.getWidth();
-        bitmapHeight = bitmapLocation.getHeight();
-
-        if (isSetReferValue) {
-            float r1 = r * 3 / 4;
-            canvas.save();
-            canvas.translate(CENTERX, CENTERX);
-            canvas.drawArc(new RectF(-r1, -r1, r1, r1), -210, currentRotateAngle, false, paintMiddleArc);
-            canvas.rotate(-30 + currentRotateAngle);
-            Matrix matrix = new Matrix();
-            matrix.preTranslate(-r1 - bitmapWidth * 3/ 8, -bitmapHeight / 2);
-            canvas.drawBitmap(bitmapLocation, matrix, paintBitmap);
-            canvas.restore();
-        }
-
     }
 
     public void setValue(int referValue, final RotateListener rotateListener) {
         isSetReferValue = !isSetReferValue;
+        this.rotateListener = rotateListener;
         if (referValue <= 150) {
             totalRotateAngle = 0f;
         } else if (referValue <= 550) {
@@ -191,36 +214,7 @@ public class AliArc extends FrameLayout {
         }
 
         rotateAngle = totalRotateAngle / 60;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                boolean rotating = true;
-                float value = 350;
-                while (rotating) {
-                    try {
-                        Thread.sleep(16);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    currentRotateAngle += rotateAngle;
-                    if (currentRotateAngle >= totalRotateAngle) {
-                        currentRotateAngle = totalRotateAngle;
-                        rotating = false;
-                    }
-                    if (null != rotateListener) {
-                        if (currentRotateAngle <= 80) {
-                            value = 350 + (currentRotateAngle / 80) * 400;
-                        } else if (currentRotateAngle <= 200) {
-                            value = 550 + ((currentRotateAngle - 80) / 120) * 150;
-                        } else {
-                            value = 700 + ((currentRotateAngle - 200) / 40) * 250;
-                        }
-                        rotateListener.rotate(currentRotateAngle, value);
-                    }
-                    postInvalidate();
-                }
-            }
-        }).start();
+
     }
 
 }

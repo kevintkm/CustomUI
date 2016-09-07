@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/fragment_design_layout"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/design_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/bg_gb_list_btn_grab_click"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp60"
+        android:paddingRight="@dimen/dp60"
+        android:background="@color/grey42"
+        android:showDividers="middle">
+
+        <TextView
+            android:id="@+id/design_button_ali"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp10"
+            android:textColor="@color/white"
+            android:text="@string/design_ali"/>
+
+        <TextView
+            android:id="@+id/design_button_drag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp10"
+            android:textColor="@color/white"
+            android:text="@string/design_drag"/>
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/design_frame_layout"
+        android:layout_below="@+id/design_linear_layout">
+        <ViewStub
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/viewStud"
+            android:layout="@layout/ali_layout_item">
+        </ViewStub>
+    </FrameLayout>
+</RelativeLayout>

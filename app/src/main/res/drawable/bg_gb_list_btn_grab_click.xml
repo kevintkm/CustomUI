@@ -1,0 +1,10 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:useLevel="false">
+    <solid android:color="@color/gb_goods_list_adapter_btn_grab_imd" />
+    <corners android:topLeftRadius="3dp"
+        android:topRightRadius="3dp"
+        android:bottomRightRadius="3dp"
+        android:bottomLeftRadius="3dp"/>
+    <size android:width="@dimen/dp3"
+        />
+</shape>
