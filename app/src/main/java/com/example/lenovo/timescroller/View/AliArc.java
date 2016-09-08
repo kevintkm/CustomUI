@@ -187,14 +187,20 @@ public class AliArc extends FrameLayout {
 
         String[] text = {"950", "极好", "700", "优秀", "650", "良好", "600", "中等", "550", "较差", "350", "很差", "150"};
 
+
         Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         textPaint.setColor(Color.RED);
-        textPaint.setTextSize(18);
+        textPaint.setTextSize(28);
         for (int i = 0; i <= 12; i++) {
-            canvas.save();
-            canvas.rotate(-(-120 + 20 * i), CENTERX, CENTERX);
-            canvas.drawText(text[i], CENTERX - 20, CENTERX * 3 / 16, textPaint);
-            canvas.restore();
+            Path textPath = new Path();
+            int startAngle = 140+20*i;
+            int textWidth = (int) textPaint.measureText(text[12-i]);
+            textPath.addArc(new RectF(0,0,width,width),startAngle,20);
+            canvas.drawTextOnPath(text[12-i],textPath, (float) (2*r*Math.PI/36)-textWidth/2,87,textPaint);
+//            canvas.save();
+//            canvas.rotate(-(-120 + 20 * i), CENTERX, CENTERX);
+//            canvas.drawText(text[i], CENTERX - 20, CENTERX * 3 / 16, textPaint);
+//            canvas.restore();
         }
     }
 
