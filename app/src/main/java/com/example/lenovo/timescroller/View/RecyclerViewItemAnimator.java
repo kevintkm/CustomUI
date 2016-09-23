@@ -13,8 +13,8 @@ import java.util.List;
  * Created by chris on 16/4/27.
  */
 public class RecyclerViewItemAnimator extends RecyclerView.ItemAnimator {
-    List<RecyclerView.ViewHolder> mAnimationAddViewHolders = new ArrayList<RecyclerView.ViewHolder>();
-    List<RecyclerView.ViewHolder> mAnimationRemoveViewHolders = new ArrayList<RecyclerView.ViewHolder>();
+    List<RecyclerView.ViewHolder> mAnimationAddViewHolders = new ArrayList<>();
+    List<RecyclerView.ViewHolder> mAnimationRemoveViewHolders = new ArrayList<>();
 
     @Override
     public boolean animateDisappearance(RecyclerView.ViewHolder viewHolder, ItemHolderInfo preLayoutInfo, ItemHolderInfo postLayoutInfo) {

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.example.lenovo.timescroller.R;
 import com.example.lenovo.timescroller.Util.Util;
+import com.example.lenovo.timescroller.View.BezierAndWater;
 import com.example.lenovo.timescroller.View.DragViewGroup;
 
 /**
@@ -39,9 +40,8 @@ public class SourceAnalyseFragment extends Fragment{
          */
 
         View view = inflater.inflate(R.layout.fragment_draglinear_layout,container,false);
-        DragViewGroup group = (DragViewGroup) view;
-        group.init();
-        return view;
+        BezierAndWater group = (BezierAndWater) view;
+        return group;
 
     }
 
