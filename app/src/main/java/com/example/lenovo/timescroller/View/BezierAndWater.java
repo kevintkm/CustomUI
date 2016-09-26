@@ -77,7 +77,7 @@ public class BezierAndWater extends View {
         //绘制波浪下方闭合区域
         mPath.lineTo(viewWidth + 1 / 4F * viewWidth, viewHeight);
         mPath.lineTo(-1 / 4F * viewWidth, viewHeight);
-        mPath.close();
+        //mPath.close();
         //绘制路径
         canvas.drawPath(mPath, mPaint);
         //绘制红色水位高度辅助线

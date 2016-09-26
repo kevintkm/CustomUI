@@ -13,6 +13,7 @@ import com.example.lenovo.timescroller.R;
 import com.example.lenovo.timescroller.Util.Util;
 import com.example.lenovo.timescroller.View.BezierAndWater;
 import com.example.lenovo.timescroller.View.DragViewGroup;
+import com.example.lenovo.timescroller.View.PaperFlyView;
 
 /**
  * Created by kevin.tian on 2016/8/9.
@@ -40,7 +41,7 @@ public class SourceAnalyseFragment extends Fragment{
          */
 
         View view = inflater.inflate(R.layout.fragment_draglinear_layout,container,false);
-        BezierAndWater group = (BezierAndWater) view;
+        PaperFlyView group = (PaperFlyView) view;
         return group;
 
     }
