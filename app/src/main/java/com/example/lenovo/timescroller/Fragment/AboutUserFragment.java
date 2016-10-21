@@ -29,7 +29,7 @@ public class AboutUserFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_project_layout, null);
+        View view = inflater.inflate(R.layout.round_layout, null);
         return view;
     }
 

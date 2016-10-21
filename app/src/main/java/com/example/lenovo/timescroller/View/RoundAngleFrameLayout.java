@@ -12,6 +12,8 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
+import com.example.lenovo.timescroller.R;
+
 
 /**
  * 圆角FrameLayout
