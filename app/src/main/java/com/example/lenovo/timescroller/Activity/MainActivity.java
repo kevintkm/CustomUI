@@ -3,23 +3,20 @@ package com.example.lenovo.timescroller.Activity;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.lenovo.timescroller.Adapter.MenuAdapter;
 import com.example.lenovo.timescroller.Fragment.AboutUserFragment;
+import com.example.lenovo.timescroller.Fragment.CommonWidgetFragment;
 import com.example.lenovo.timescroller.Fragment.DesignPatternFragment;
-import com.example.lenovo.timescroller.Fragment.GankFragment;
+import com.example.lenovo.timescroller.Fragment.MenuFragment;
 import com.example.lenovo.timescroller.Fragment.MoudleLearningFragment;
 import com.example.lenovo.timescroller.Fragment.ProjectLearningFragment;
-import com.example.lenovo.timescroller.Fragment.MenuFragment;
-import com.example.lenovo.timescroller.Fragment.CommonWidgetFragment;
 import com.example.lenovo.timescroller.Fragment.SourceAnalyseFragment;
 import com.example.lenovo.timescroller.Model.MenuBean;
 import com.example.lenovo.timescroller.R;
@@ -83,6 +80,16 @@ public class MainActivity extends BaseActivity implements MenuAdapter.MenuItemCl
 
         currentFragment = getMenuFragment(0);
         fragmentManager.beginTransaction().add(R.id.main_content, currentFragment).commit();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override

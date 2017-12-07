@@ -3,6 +3,7 @@ package com.example.lenovo.timescroller.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v4.view.ViewCompat;
@@ -15,7 +16,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.lenovo.timescroller.R;
-import com.example.lenovo.timescroller.service.AlarmReciver;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -58,11 +58,26 @@ public class ImageActivity extends BaseActivity {
         /**
          * new SimpleTarget<Bitmap>保持context引用问题
          */
-        Glide.with(getApplicationContext()).load(extra).asBitmap().placeholder(R.drawable.kevin).into(new SimpleTarget<Bitmap>() {
+        Glide.with(getApplicationContext()).load(extra).asBitmap().into(new SimpleTarget<Bitmap>() {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                if (image == null) {
+                    return;
+                }
                 bitmap = resource;
                 image.setImageBitmap(resource);
+            }
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                image.setImageResource(R.drawable.kevin);
+            }
+
+            @Override
+            public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                super.onLoadFailed(e, errorDrawable);
+//                image.setImageResource(R.drawable.kevin);
             }
         });
     }
