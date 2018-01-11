@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import com.example.lenovo.timescroller.Inteferce.IUIControler;
@@ -37,12 +38,49 @@ public abstract class BaseActivity extends AppCompatActivity implements IUIContr
         super.onCreate(savedInstanceState);
         setContentView(setLayoutId());
         ButterKnife.inject(this);
+        Log.d("-------------Create",this.getClass().getName());
         extra = getIntent().getStringExtra(OBJECT_EXTRA);
         application = getApplication();
         mContext = this;
         initToolBar();
         initUI();
         initData();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("-------------Start",this.getClass().getName());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("-------------Resume",this.getClass().getName());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("-------------Pause",this.getClass().getName());
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        Log.d("-----AttachedToWindow",this.getClass().getName());
+    }
+
+    @Override
+    public void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        Log.d("---------DetachedWindow",this.getClass().getName());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("-------------Destroy",this.getClass().getName());
     }
 
     protected void initToolBar() {

@@ -14,94 +14,23 @@
     <com.example.lenovo.timescroller.View.RoundAngleFrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="30dp"
-        app:radius="30dip">
+        android:background="@color/white"
+        android:padding="@dimen/dp20"
+        app:radius="0dip">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/white">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:divider="@color/A9A9A9"
+                android:showDividers="middle"
                 android:orientation="vertical">
 
-
-                <Button
+                <ImageView
+                    android:id="@+id/button1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="match_parent"/>
 
             </LinearLayout>
-        </ScrollView>
     </com.example.lenovo.timescroller.View.RoundAngleFrameLayout>
 </RelativeLayout>
