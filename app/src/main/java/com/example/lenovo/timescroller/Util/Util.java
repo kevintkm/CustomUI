@@ -483,7 +483,7 @@ public class Util {
 
     /**
      * @param context
-     * @param resType String, such as "drawable", "layout"
+     * @param resType String, such as "drawable", "item_menu_layout"
      * @param index   index of the resource
      * @param length  add '0', such as 01, 001..
      * @return
@@ -665,5 +665,7 @@ public class Util {
         Gson gson = new Gson();
         return gson.fromJson(result,className);
     }
+
+
 
 }

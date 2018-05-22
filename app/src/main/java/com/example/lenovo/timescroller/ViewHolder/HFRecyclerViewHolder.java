@@ -61,7 +61,7 @@ public abstract class HFRecyclerViewHolder extends BaseRecyclerViewHolder {
     }
 
     /*******************************************************************************************************************
-     * Measure the layout real height (header / footer)
+     * Measure the item_menu_layout real height (header / footer)
      *******************************************************************************************************************/
     private int measureLayout(View view) {
         DisplayMetrics dm = context.getResources().getDisplayMetrics();
@@ -72,7 +72,7 @@ public abstract class HFRecyclerViewHolder extends BaseRecyclerViewHolder {
     }
 
     /*******************************************************************************************************************
-     * Init layout and give it 1-pixel height
+     * Init item_menu_layout and give it 1-pixel height
      *******************************************************************************************************************/
     private void resetLayout(int height) {
         StaggeredGridLayoutManager.LayoutParams lp = (StaggeredGridLayoutManager.LayoutParams) layout.getLayoutParams();
@@ -85,7 +85,7 @@ public abstract class HFRecyclerViewHolder extends BaseRecyclerViewHolder {
     }
 
     /*******************************************************************************************************************
-     * TouchEvent process, adjust layout's height when MotionEvent.ACTION_MOVE
+     * TouchEvent process, adjust item_menu_layout's height when MotionEvent.ACTION_MOVE
      *******************************************************************************************************************/
     public void onScroll(int distanceY) {
         StaggeredGridLayoutManager.LayoutParams lp = (StaggeredGridLayoutManager.LayoutParams) layout.getLayoutParams();
@@ -101,7 +101,7 @@ public abstract class HFRecyclerViewHolder extends BaseRecyclerViewHolder {
     }
 
     /*******************************************************************************************************************
-     * TouchEvent process, adjust layout's height when MotionEvent.ACTION_UP or CANCEL
+     * TouchEvent process, adjust item_menu_layout's height when MotionEvent.ACTION_UP or CANCEL
      *******************************************************************************************************************/
     public void onRelease() {
         StaggeredGridLayoutManager.LayoutParams lp = (StaggeredGridLayoutManager.LayoutParams) layout.getLayoutParams();
@@ -162,7 +162,7 @@ public abstract class HFRecyclerViewHolder extends BaseRecyclerViewHolder {
     }
 
     /*******************************************************************************************************************
-     * On Complete reset layout and status
+     * On Complete reset item_menu_layout and status
      *******************************************************************************************************************/
     public void noMore() {
         resetLayout(minHeight);
