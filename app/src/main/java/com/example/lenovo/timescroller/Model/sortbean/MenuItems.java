@@ -11,15 +11,11 @@ public class MenuItems {
      */
     private Object object;
     /**
-     * 菜单项图标url
-     */
-    private String headUrl;
-    /**
      * 菜单项名称
      */
     private String itemName;
     /**
-     * title的右上角图标url  add on 4.2新首页 by@East.K
+     *图标url
      */
     private String itemIconUrl;
 
@@ -37,15 +33,6 @@ public class MenuItems {
 
     public MenuItems setObject(Object object) {
         this.object = object;
-        return this;
-    }
-
-    public String getHeadUrl() {
-        return headUrl;
-    }
-
-    public MenuItems setHeadUrl(String headUrl) {
-        this.headUrl = headUrl;
         return this;
     }
 

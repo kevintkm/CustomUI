@@ -6,7 +6,6 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Rect;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -134,24 +133,24 @@ public class MenuView extends HorizontalScrollView {
         // 所有分类父布局
         parentView = new LinearLayout(context);
         parentView.setOrientation(LinearLayout.HORIZONTAL);
-        parentView.setPadding(0, 8, 0, 0);
+        parentView.setPadding(3, 8, 3, 8);
 //        parentView.setBackgroundResource(R.color.white);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         parentView.setLayoutParams(params);
         parentView.setId(ViewUtils.generateViewId());
         RelativeLayout itemView = new RelativeLayout(context);
-        LayoutParams itemsParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LayoutParams itemsParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         itemView.setLayoutParams(itemsParams);
         // 滑块
         line = new ImageView(context);
         line.setId(ViewUtils.generateViewId());
         line.setImageResource(R.color.red);
         RelativeLayout.LayoutParams lineParams = new RelativeLayout.LayoutParams(lineWidth, Util.dpToPx(getResources(), 2.2f));
-        lineParams.addRule(RelativeLayout.BELOW, parentView.getId());
+        lineParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         line.setLayoutParams(lineParams);
         itemView.setBackgroundResource(R.color.white);
-        itemView.addView(parentView);
         itemView.addView(line);
+        itemView.addView(parentView);
         setPadding(0, 0, 0, Util.dpToPx(getResources(), 0.5f));
 //        setBackgroundResource(R.drawable.border_only_bottom_theme_gray_bg_grey_line);
 
@@ -184,7 +183,7 @@ public class MenuView extends HorizontalScrollView {
 
         if (menuItems != null && !TextUtils.isEmpty(menuItems.getItemIconUrl())) {   //是否隐藏图标
             ImageView iv = new ImageView(context);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(itemWidth, itemHeight);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(itemWidth, ViewGroup.LayoutParams.MATCH_PARENT);
             iv.setLayoutParams(lp);
             iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
             ImageLoaderUtil.loadImage(context, menuItems.getItemIconUrl(), iv);
@@ -192,7 +191,7 @@ public class MenuView extends HorizontalScrollView {
             titleView.add(iv);
         } else {
             TextView tv = new TextView(context);
-            tv.setLayoutParams(new LinearLayout.LayoutParams(itemWidth - 1, txtHeight <= 0 ? ViewGroup.LayoutParams.WRAP_CONTENT : txtHeight));
+            tv.setLayoutParams(new LinearLayout.LayoutParams(itemWidth - 1, ViewGroup.LayoutParams.MATCH_PARENT));
             tv.setText(menuItems.getItemName());
             tv.setTextSize(15);
             tv.setGravity(Gravity.CENTER);
@@ -234,27 +233,10 @@ public class MenuView extends HorizontalScrollView {
      * @param view
      */
     private void doScroll(View view) {
-        // 父布局距离屏幕的距离
-        int scrollX = getScrollX();
-        // 屏幕宽度
-        int screenWidth = Util.getScreenWidth((Activity) context);
-        Rect ract = new Rect();
-        view.getHitRect(ract);
-        // 当前view左边距离父view左边的距离
-        int left = ract.left;
-        // 当前view右边距离父view右边的距离
-        int right = ract.right;
-        if (left < scrollX && right > scrollX + screenWidth) {
-            // 当前view两边都在屏幕外的情况  暂时不考虑
-        } else if (left < scrollX) {
-            // 左边部分不可见，屏幕左滑
-            smoothScrollBy(left - scrollX, 0);
-        } else if (right > scrollX + screenWidth) {
-            // 右边部分不可见,屏幕右滑
-            smoothScrollBy(right - (screenWidth + scrollX), 0);
-        } else {
-            // 当前view全部可见, 不作操作
-        }
+        int x = view.getLeft();
+        int width = getMeasuredWidth();
+        x = x - width / 2 + view.getMeasuredWidth() / 2;
+        smoothScrollTo(x, 0);
     }
 
     /**
